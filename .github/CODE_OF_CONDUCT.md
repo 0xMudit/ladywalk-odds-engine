@@ -67,7 +67,7 @@ discussions, and any communication channel used to coordinate work on the projec
 ## Reporting a concern
 
 Report a concern through GitHub's private reporting: **Security → Report a vulnerability** on
-<https://github.com/BerlinDeskMudit/LadyWalk-odds-engine>, or by contacting the maintainer
+<https://github.com/BerlinDeskMudit/ladywalk-odds-engine>, or by contacting the maintainer
 privately. Use the same channel as [`SECURITY.md`](SECURITY.md).
 
 Do not open a public issue to report a conduct concern. A public report identifies the reporter to

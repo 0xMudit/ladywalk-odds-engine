@@ -2,7 +2,7 @@
 
 **Status:** Accepted
 **Date:** 2026-09-27
-**Issue:** [#15](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/15)
+**Issue:** [#15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15)
 **Deciders:** @BerlinDeskMudit
 **Supersedes:** none
 
@@ -17,7 +17,7 @@ Two facts dominate:
 
 1. **The matching engine cannot be on-chain.** Solana slot time is roughly
    400ms. The committed budget is p99 under 50ms for order acceptance
-   ([Q37](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/37)).
+   ([Q37](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/37)).
    A consensus-finality round trip cannot sit under that budget, and no amount
    of tuning changes the order of magnitude. Anything on the hot path stays in
    a centralised, single-writer service.
@@ -84,7 +84,7 @@ Specific commitments:
 
 4. **Integer minor units throughout, end to end.** SPL token amounts are `u64`
    integers. The `Money` newtype over `i64` maps onto them without conversion, so
-   the "never a float" guarantee ([Q01](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/1))
+   the "never a float" guarantee ([Q01](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/1))
    extends across the on-chain boundary with no decimal handling. Any
    multiplication, such as commission on net winnings, is integer arithmetic
    with an explicitly documented rounding direction — never a float, and never

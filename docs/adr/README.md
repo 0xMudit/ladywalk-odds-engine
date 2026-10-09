@@ -54,14 +54,14 @@ were already decided, and each will become an ADR when its question is answered:
 
 | Constraint | Question |
 | --- | --- |
-| Money is never a float | [Q01](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/1) |
-| The ledger is the source of truth, not the balance | [Q03](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/3) |
-| Double-entry sums to zero with zero tolerance | [Q04](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/4) |
-| Every state change is audited tamper-evidently | [Q47](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/47) |
-| One switch stops all money movement | [Q35](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/35) |
+| Money is never a float | [Q01](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/1) |
+| The ledger is the source of truth, not the balance | [Q03](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/3) |
+| Double-entry sums to zero with zero tolerance | [Q04](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/4) |
+| Every state change is audited tamper-evidently | [Q47](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/47) |
+| One switch stops all money movement | [Q35](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/35) |
 
 One candidate was removed rather than deferred. "The server decides the price"
-([Q19](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/19)) was a
+([Q19](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/19)) was a
 bookmaker property, and [ADR-0001](0001-peer-to-peer-exchange.md) inverted it:
 in an exchange the client proposes the price and the engine decides the match.
 Writing an ADR for it would record the wrong invariant.

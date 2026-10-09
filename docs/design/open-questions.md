@@ -6,7 +6,7 @@ This is the **design track**. The implementation track is the
 [roadmap](../roadmap.md), and the decisions that get made here land as ADRs in
 [`../adr/`](../adr/).
 
-[repo](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine) · [all 66 issues](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues) · [open](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aopen) · [closed](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aclosed) · [MVP milestone](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/milestone/1)
+[repo](https://github.com/BerlinDeskMudit/ladywalk-odds-engine) · [all 66 issues](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues) · [open](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues?q=is%3Aissue+is%3Aopen) · [closed](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues?q=is%3Aissue+is%3Aclosed) · [MVP milestone](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/milestone/1)
 
 ## How this works
 
@@ -54,19 +54,19 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [01](#q01) | `feat` | `critical` | MVP | [#1](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/1) | open |
-| [02](#q02) | `feat` | `critical` | MVP | [#2](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/2) | open |
-| [03](#q03) | `feat` | `critical` | MVP | [#3](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/3) | open |
-| [04](#q04) | `feat` | `critical` | MVP | [#4](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/4) | open |
-| [05](#q05) | `feat` | `high` | MVP | [#5](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/5) | open |
-| [06](#q06) | `task` | `medium` | Portfolio Depth | [#6](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/6) | open |
-| [07](#q07) | `feat` | `medium` | Portfolio Depth | [#7](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/7) | open |
+| [01](#q01) | `feat` | `critical` | MVP | [#1](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/1) | open |
+| [02](#q02) | `feat` | `critical` | MVP | [#2](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/2) | open |
+| [03](#q03) | `feat` | `critical` | MVP | [#3](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/3) | open |
+| [04](#q04) | `feat` | `critical` | MVP | [#4](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/4) | open |
+| [05](#q05) | `feat` | `high` | MVP | [#5](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/5) | open |
+| [06](#q06) | `task` | `medium` | Portfolio Depth | [#6](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/6) | open |
+| [07](#q07) | `feat` | `medium` | Portfolio Depth | [#7](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/7) | open |
 
 <a id="q01"></a>
 
 #### Q01 · Enforce integer-only money representation (no floats anywhere)
 
-[Issue #1](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/1) · `feat` · `critical` · **MVP**
+[Issue #1](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/1) · `feat` · `critical` · **MVP**
 
 > Do I store money as integers (cents) or fixed-point decimals — and have I banned floats everywhere, including in the ORM layer?
 
@@ -85,7 +85,7 @@ Milestones encode phase, not urgency:
 
 #### Q02 · Define canonical market -> outcome -> bet -> settlement schema
 
-[Issue #2](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/2) · `feat` · `critical` · **MVP**
+[Issue #2](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/2) · `feat` · `critical` · **MVP**
 
 > What's my canonical schema for `market -> outcome -> bet -> settlement` — and is it normalized enough to avoid update anomalies during grading?
 
@@ -103,7 +103,7 @@ Milestones encode phase, not urgency:
 
 #### Q03 · Build immutable append-only double-entry ledger; derive balance
 
-[Issue #3](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/3) · `feat` · `critical` · **MVP**
+[Issue #3](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/3) · `feat` · `critical` · **MVP**
 
 > Am I using a single mutable `balance` column, or a full immutable, append-only ledger (debits/credits) that balance is *derived* from?
 
@@ -121,7 +121,7 @@ Milestones encode phase, not urgency:
 
 #### Q04 · Enforce and continuously test the double-entry sum-to-zero invariant
 
-[Issue #4](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/4) · `feat` · `critical` · **MVP**
+[Issue #4](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/4) · `feat` · `critical` · **MVP**
 
 > If ledger-based: how do I guarantee the ledger always sums to zero across the system (double-entry invariant), and how do I test that invariant continuously?
 
@@ -139,7 +139,7 @@ Milestones encode phase, not urgency:
 
 #### Q05 · Add immutable odds history with an as-placed execution record
 
-[Issue #5](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/5) · `feat` · `high` · **MVP**
+[Issue #5](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/5) · `feat` · `high` · **MVP**
 
 > How do I version odds over time — do I keep an immutable odds history table so I can prove what odds a user actually got, forever?
 
@@ -157,7 +157,7 @@ Milestones encode phase, not urgency:
 
 #### Q06 · ADR: as-of state reconstruction — event sourcing vs snapshot + delta
 
-[Issue #6](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/6) · `task` · `medium` · **Portfolio Depth**
+[Issue #6](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/6) · `task` · `medium` · **Portfolio Depth**
 
 > What's my strategy for storing 'as of' state — can I reconstruct exactly what any market looked like at any past timestamp (event sourcing vs snapshot + delta)?
 
@@ -174,7 +174,7 @@ Milestones encode phase, not urgency:
 
 #### Q07 · Model void / push / partial-void outcomes without corrupting settlement history
 
-[Issue #7](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/7) · `feat` · `medium` · **Portfolio Depth**
+[Issue #7](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/7) · `feat` · `medium` · **Portfolio Depth**
 
 > How do I model void/push/partial-void outcomes without corrupting historical settlement records?
 
@@ -191,19 +191,19 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [08](#q08) | `feat` | `high` | MVP | [#8](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/8) | open |
-| [09](#q09) | `feat` | `critical` | MVP | [#9](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/9) | open |
-| [10](#q10) | `bug` | `critical` | MVP | [#10](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/10) | open |
-| [11](#q11) | `spike` | `high` | MVP | [#11](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/11) | open |
-| [12](#q12) | `task` | `low` | Future Work | [#12](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/12) | open |
-| [13](#q13) | `feat` | `critical` | MVP | [#13](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/13) | open |
-| [14](#q14) | `feat` | `high` | MVP | [#14](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/14) | open |
+| [08](#q08) | `feat` | `high` | MVP | [#8](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/8) | open |
+| [09](#q09) | `feat` | `critical` | MVP | [#9](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/9) | open |
+| [10](#q10) | `bug` | `critical` | MVP | [#10](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/10) | open |
+| [11](#q11) | `spike` | `high` | MVP | [#11](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/11) | open |
+| [12](#q12) | `task` | `low` | Future Work | [#12](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/12) | open |
+| [13](#q13) | `feat` | `critical` | MVP | [#13](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/13) | open |
+| [14](#q14) | `feat` | `high` | MVP | [#14](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/14) | open |
 
 <a id="q08"></a>
 
 #### Q08 · Choose and implement the per-market bet serialization strategy
 
-[Issue #8](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/8) · `feat` · `high` · **MVP**
+[Issue #8](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/8) · `feat` · `high` · **MVP**
 
 > When 10,000 users hit 'place bet' on the same market within 50ms of each other, what serializes them — DB row locks, optimistic concurrency with retry, or a single-writer queue per market?
 
@@ -221,7 +221,7 @@ Milestones encode phase, not urgency:
 
 #### Q09 · Make bet placement + balance deduction a single ACID transaction
 
-[Issue #9](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/9) · `feat` · `critical` · **MVP**
+[Issue #9](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/9) · `feat` · `critical` · **MVP**
 
 > Is bet placement + balance deduction wrapped in a single ACID transaction, or is it two-phase across services — and if the latter, what's my compensation/saga logic on partial failure?
 
@@ -239,7 +239,7 @@ Milestones encode phase, not urgency:
 
 #### Q10 · Eliminate TOCTOU double-spend in balance check-then-deduct
 
-[Issue #10](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/10) · `bug` · `critical` · **MVP**
+[Issue #10](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/10) · `bug` · `critical` · **MVP**
 
 > How do I prevent a double-spend where a user's balance check and balance deduction race across two concurrent requests (classic TOCTOU)?
 
@@ -256,7 +256,7 @@ Milestones encode phase, not urgency:
 
 #### Q11 · Benchmark SELECT FOR UPDATE vs advisory locks vs optimistic versioning on the wallet row
 
-[Issue #11](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/11) · `spike` · `high` · **MVP**
+[Issue #11](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/11) · `spike` · `high` · **MVP**
 
 > Am I using SELECT FOR UPDATE, advisory locks, or optimistic versioning (version column + compare-and-swap) on the wallet row — and what's the throughput ceiling of each?
 
@@ -273,7 +273,7 @@ Milestones encode phase, not urgency:
 
 #### Q12 · ADR: wallet sharding and cross-shard transaction atomicity
 
-[Issue #12](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/12) · `task` · `low` · **Future Work**
+[Issue #12](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/12) · `task` · `low` · **Future Work**
 
 > If I shard the wallet table, how do I keep balance-deduction transactions atomic across shard boundaries (or do I ensure a user's wallet is always single-shard)?
 
@@ -290,7 +290,7 @@ Milestones encode phase, not urgency:
 
 #### Q13 · Design and implement idempotency keys for bet placement and settlement
 
-[Issue #13](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/13) · `feat` · `critical` · **MVP**
+[Issue #13](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/13) · `feat` · `critical` · **MVP**
 
 > What's my idempotency key design so a client retry (network blip) never double-places a bet or double-pays a settlement?
 
@@ -308,7 +308,7 @@ Milestones encode phase, not urgency:
 
 #### Q14 · Define last-odds / last-slot race semantics
 
-[Issue #14](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/14) · `feat` · `high` · **MVP**
+[Issue #14](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/14) · `feat` · `high` · **MVP**
 
 > How do I handle the 'last odds/last slot' race — first-writer-wins, queue-based FIFO, or do I reject and let the client re-quote?
 
@@ -325,18 +325,18 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [15](#q15) | `task` | `critical` | MVP | [#15](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/15) | open |
-| [16](#q16) | `feat` | `high` | MVP | [#16](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/16) | open |
-| [17](#q17) | `spike` | `high` | MVP | [#17](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/17) | open |
-| [18](#q18) | `feat` | `high` | MVP | [#18](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/18) | open |
-| [19](#q19) | `feat` | `critical` | MVP | [#19](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/19) | open |
-| [20](#q20) | `feat` | `medium` | Portfolio Depth | [#20](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/20) | open |
+| [15](#q15) | `task` | `critical` | MVP | [#15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15) | open |
+| [16](#q16) | `feat` | `high` | MVP | [#16](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/16) | open |
+| [17](#q17) | `spike` | `high` | MVP | [#17](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/17) | open |
+| [18](#q18) | `feat` | `high` | MVP | [#18](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/18) | open |
+| [19](#q19) | `feat` | `critical` | MVP | [#19](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/19) | open |
+| [20](#q20) | `feat` | `medium` | Portfolio Depth | [#20](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/20) | open |
 
 <a id="q15"></a>
 
 #### Q15 · ADR: choose fixed-odds, pari-mutuel, or exchange matching model
 
-[Issue #15](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/15) · `task` · `critical` · **MVP**
+[Issue #15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15) · `task` · `critical` · **MVP**
 
 > Is this fixed-odds, pari-mutuel pool, or exchange-style (peer matching) — and do I understand that these three have completely different concurrency and liability models?
 
@@ -353,7 +353,7 @@ Milestones encode phase, not urgency:
 
 #### Q16 · Decide and implement where the vig / margin is applied
 
-[Issue #16](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/16) · `feat` · `high` · **MVP**
+[Issue #16](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/16) · `feat` · `high` · **MVP**
 
 > Where does the vig/margin get baked in — at market creation, or dynamically as liability shifts?
 
@@ -370,7 +370,7 @@ Milestones encode phase, not urgency:
 
 #### Q17 · Evaluate the odds update function: linear vs logistic vs LMSR-style curve
 
-[Issue #17](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/17) · `spike` · `high` · **MVP**
+[Issue #17](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/17) · `spike` · `high` · **MVP**
 
 > If odds move based on bet volume, what's the update function — linear, logistic, or a proper market-maker curve (e.g., something LMSR-like)?
 
@@ -387,7 +387,7 @@ Milestones encode phase, not urgency:
 
 #### Q18 · Implement per-outcome platform liability cap and cap-breach behaviour
 
-[Issue #18](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/18) · `feat` · `high` · **MVP**
+[Issue #18](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/18) · `feat` · `high` · **MVP**
 
 > How do I cap my platform's liability on any single outcome, and what happens when a cap is hit mid-bet (reject, requeue, auto-hedge)?
 
@@ -405,7 +405,7 @@ Milestones encode phase, not urgency:
 
 #### Q19 · Bind bet execution to a server-signed odds quote with slippage tolerance
 
-[Issue #19](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/19) · `feat` · `critical` · **MVP**
+[Issue #19](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/19) · `feat` · `critical` · **MVP**
 
 > Do I snapshot the odds a user sees vs. the odds at execution time — and what's my tolerance/slippage policy if they differ?
 
@@ -423,7 +423,7 @@ Milestones encode phase, not urgency:
 
 #### Q20 · Invalidate stale odds across all connected clients within a latency budget
 
-[Issue #20](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/20) · `feat` · `medium` · **Portfolio Depth**
+[Issue #20](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/20) · `feat` · `medium` · **Portfolio Depth**
 
 > How do I stale-invalidate odds across all connected clients within an acceptable latency budget?
 
@@ -440,17 +440,17 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [21](#q21) | `task` | `high` | MVP | [#21](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/21) | open |
-| [22](#q22) | `feat` | `medium` | Portfolio Depth | [#22](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/22) | open |
-| [23](#q23) | `feat` | `high` | MVP | [#23](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/23) | open |
-| [24](#q24) | `feat` | `medium` | Portfolio Depth | [#24](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/24) | open |
-| [25](#q25) | `feat` | `medium` | Portfolio Depth | [#25](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/25) | open |
+| [21](#q21) | `task` | `high` | MVP | [#21](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/21) | open |
+| [22](#q22) | `feat` | `medium` | Portfolio Depth | [#22](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/22) | open |
+| [23](#q23) | `feat` | `high` | MVP | [#23](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/23) | open |
+| [24](#q24) | `feat` | `medium` | Portfolio Depth | [#24](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/24) | open |
+| [25](#q25) | `feat` | `medium` | Portfolio Depth | [#25](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/25) | open |
 
 <a id="q21"></a>
 
 #### Q21 · ADR: WebSockets vs SSE vs long-polling, justified on reconnection semantics
 
-[Issue #21](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/21) · `task` · `high` · **MVP**
+[Issue #21](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/21) · `task` · `high` · **MVP**
 
 > WebSockets, SSE, or long-polling — and can I justify the choice against reconnection semantics, not just 'WebSockets are cool'?
 
@@ -466,7 +466,7 @@ Milestones encode phase, not urgency:
 
 #### Q22 · Fan out odds updates to 100K+ connections without per-server socket maps
 
-[Issue #22](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/22) · `feat` · `medium` · **Portfolio Depth**
+[Issue #22](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/22) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you fan out odds updates to potentially 100K+ concurrent connections without every app server holding a giant socket map — Redis pub/sub, Kafka + a thin gateway layer, or a dedicated real-time service?
 
@@ -483,7 +483,7 @@ Milestones encode phase, not urgency:
 
 #### Q23 · Implement reconnect resync via snapshot + delta
 
-[Issue #23](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/23) · `feat` · `high` · **MVP**
+[Issue #23](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/23) · `feat` · `high` · **MVP**
 
 > On reconnect, how does a client resync to current state without replaying every event since disconnect (snapshot + delta vs full replay)?
 
@@ -500,7 +500,7 @@ Milestones encode phase, not urgency:
 
 #### Q24 · Handle backpressure for slow clients during high-velocity in-play updates
 
-[Issue #24](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/24) · `feat` · `medium` · **Portfolio Depth**
+[Issue #24](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/24) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you handle backpressure when a slow client can't keep up with odds update velocity during a live in-play event?
 
@@ -517,7 +517,7 @@ Milestones encode phase, not urgency:
 
 #### Q25 · Design hot-market fanout for a 50K-socket thundering herd
 
-[Issue #25](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/25) · `feat` · `medium` · **Portfolio Depth**
+[Issue #25](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/25) · `feat` · `medium` · **Portfolio Depth**
 
 > What's my fanout architecture if one market suddenly needs to push to 50K sockets simultaneously (a 'hot market' thundering herd)?
 
@@ -534,17 +534,17 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [26](#q26) | `feat` | `high` | MVP | [#26](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/26) | open |
-| [27](#q27) | `feat` | `critical` | MVP | [#27](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/27) | open |
-| [28](#q28) | `feat` | `critical` | MVP | [#28](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/28) | open |
-| [29](#q29) | `task` | `medium` | Portfolio Depth | [#29](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/29) | open |
-| [30](#q30) | `feat` | `critical` | MVP | [#30](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/30) | open |
+| [26](#q26) | `feat` | `high` | MVP | [#26](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/26) | open |
+| [27](#q27) | `feat` | `critical` | MVP | [#27](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/27) | open |
+| [28](#q28) | `feat` | `critical` | MVP | [#28](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/28) | open |
+| [29](#q29) | `task` | `medium` | Portfolio Depth | [#29](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/29) | open |
+| [30](#q30) | `feat` | `critical` | MVP | [#30](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/30) | open |
 
 <a id="q26"></a>
 
 #### Q26 · Implement the grading pipeline with human override and override audit trail
 
-[Issue #26](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/26) · `feat` · `high` · **MVP**
+[Issue #26](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/26) · `feat` · `high` · **MVP**
 
 > Is grading manual, automated via a results feed, or hybrid with human override — and what's the audit trail on overrides?
 
@@ -562,7 +562,7 @@ Milestones encode phase, not urgency:
 
 #### Q27 · Guarantee exactly-once payout execution across settlement job crashes
 
-[Issue #27](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/27) · `feat` · `critical` · **MVP**
+[Issue #27](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/27) · `feat` · `critical` · **MVP**
 
 > What's your exactly-once guarantee on payout execution — how do you ensure a settlement job that crashes mid-run doesn't double-pay or skip users?
 
@@ -580,7 +580,7 @@ Milestones encode phase, not urgency:
 
 #### Q28 · Make settlement idempotent and resumable with per-batch checkpointing
 
-[Issue #28](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/28) · `feat` · `critical` · **MVP**
+[Issue #28](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/28) · `feat` · `critical` · **MVP**
 
 > How do you make settlement idempotent and resumable (checkpointing which bets have been paid within a batch)?
 
@@ -598,7 +598,7 @@ Milestones encode phase, not urgency:
 
 #### Q29 · ADR: wrong results feed after payout — reversal, clawback, and legality
 
-[Issue #29](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/29) · `task` · `medium` · **Portfolio Depth**
+[Issue #29](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/29) · `task` · `medium` · **Portfolio Depth**
 
 > What happens if a results feed reports a wrong outcome and I've already paid out — do I have a reversal/clawback mechanism, and is it even legal/expected to claw back?
 
@@ -616,7 +616,7 @@ Milestones encode phase, not urgency:
 
 #### Q30 · Enforce 'total paid out vs total staked minus margin' as a hard post-settlement invariant
 
-[Issue #30](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/30) · `feat` · `critical` · **MVP**
+[Issue #30](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/30) · `feat` · `critical` · **MVP**
 
 > How do you reconcile 'total paid out' against 'total staked minus margin' as a hard invariant check after every settlement run?
 
@@ -634,17 +634,17 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [31](#q31) | `task` | `high` | MVP | [#31](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/31) | open |
-| [32](#q32) | `feat` | `medium` | Portfolio Depth | [#32](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/32) | open |
-| [33](#q33) | `feat` | `medium` | Portfolio Depth | [#33](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/33) | open |
-| [34](#q34) | `task` | `medium` | Portfolio Depth | [#34](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/34) | open |
-| [35](#q35) | `feat` | `high` | MVP | [#35](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/35) | open |
+| [31](#q31) | `task` | `high` | MVP | [#31](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/31) | open |
+| [32](#q32) | `feat` | `medium` | Portfolio Depth | [#32](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/32) | open |
+| [33](#q33) | `feat` | `medium` | Portfolio Depth | [#33](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/33) | open |
+| [34](#q34) | `task` | `medium` | Portfolio Depth | [#34](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/34) | open |
+| [35](#q35) | `feat` | `high` | MVP | [#35](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/35) | open |
 
 <a id="q31"></a>
 
 #### Q31 · ADR: fail safe (halt) vs fail open (stale odds) when the pipeline dies
 
-[Issue #31](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/31) · `task` · `high` · **MVP**
+[Issue #31](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/31) · `task` · `high` · **MVP**
 
 > If my odds-update pipeline dies mid-event, does the system fail safe (halt betting on that market) or fail open (accept bets on stale odds)? Which have I chosen and why?
 
@@ -662,7 +662,7 @@ Milestones encode phase, not urgency:
 
 #### Q32 · Implement a circuit breaker for upstream results and odds feeds
 
-[Issue #32](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/32) · `feat` · `medium` · **Portfolio Depth**
+[Issue #32](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/32) · `feat` · `medium` · **Portfolio Depth**
 
 > What's your circuit breaker strategy if the upstream results/odds feed goes down or starts returning garbage?
 
@@ -680,7 +680,7 @@ Milestones encode phase, not urgency:
 
 #### Q33 · Detect and quarantine a poisoned market before it causes financial damage
 
-[Issue #33](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/33) · `feat` · `medium` · **Portfolio Depth**
+[Issue #33](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/33) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you detect and quarantine a 'poisoned' market (bad data corrupting odds) before it causes financial damage?
 
@@ -698,7 +698,7 @@ Milestones encode phase, not urgency:
 
 #### Q34 · Define DR RPO/RTO for the wallet ledger specifically
 
-[Issue #34](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/34) · `task` · `medium` · **Portfolio Depth**
+[Issue #34](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/34) · `task` · `medium` · **Portfolio Depth**
 
 > What's your disaster recovery RPO/RTO for the wallet ledger specifically, separate from the rest of the system?
 
@@ -716,7 +716,7 @@ Milestones encode phase, not urgency:
 
 #### Q35 · Implement a platform-wide betting kill switch with defined trigger authority
 
-[Issue #35](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/35) · `feat` · `high` · **MVP**
+[Issue #35](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/35) · `feat` · `high` · **MVP**
 
 > Do you have a kill switch to freeze all betting platform-wide within seconds, and who/what can trigger it?
 
@@ -735,18 +735,18 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [36](#q36) | `task` | `high` | MVP | [#36](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/36) | open |
-| [37](#q37) | `task` | `high` | MVP | [#37](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/37) | open |
-| [38](#q38) | `feat` | `medium` | Portfolio Depth | [#38](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/38) | open |
-| [39](#q39) | `feat` | `medium` | Portfolio Depth | [#39](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/39) | open |
-| [40](#q40) | `feat` | `low` | Future Work | [#40](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/40) | open |
-| [41](#q41) | `feat` | `medium` | Portfolio Depth | [#41](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/41) | open |
+| [36](#q36) | `task` | `high` | MVP | [#36](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/36) | open |
+| [37](#q37) | `task` | `high` | MVP | [#37](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/37) | open |
+| [38](#q38) | `feat` | `medium` | Portfolio Depth | [#38](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/38) | open |
+| [39](#q39) | `feat` | `medium` | Portfolio Depth | [#39](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/39) | open |
+| [40](#q40) | `feat` | `low` | Future Work | [#40](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/40) | open |
+| [41](#q41) | `feat` | `medium` | Portfolio Depth | [#41](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/41) | open |
 
 <a id="q36"></a>
 
 #### Q36 · ADR: monolith vs services, and failure-domain separation
 
-[Issue #36](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/36) · `task` · `high` · **MVP**
+[Issue #36](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/36) · `task` · `high` · **MVP**
 
 > Monolith vs microservices — and specifically, do wallet and bet-placement need to be separate failure domains from odds and market-data?
 
@@ -763,7 +763,7 @@ Milestones encode phase, not urgency:
 
 #### Q37 · ADR: sync REST vs event-driven bet placement, with a p99 latency budget
 
-[Issue #37](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/37) · `task` · `high` · **MVP**
+[Issue #37](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/37) · `task` · `high` · **MVP**
 
 > Sync REST for bet placement vs event-driven (Kafka) — what's my p99 latency budget for 'bet accepted' and does my choice hit it?
 
@@ -781,7 +781,7 @@ Milestones encode phase, not urgency:
 
 #### Q38 · Horizontally scale bet placement while preserving per-market serialization
 
-[Issue #38](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/38) · `feat` · `medium` · **Portfolio Depth**
+[Issue #38](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/38) · `feat` · `medium` · **Portfolio Depth**
 
 > How do I horizontally scale the bet-placement path without breaking the per-market serialization I designed in question 8?
 
@@ -798,7 +798,7 @@ Milestones encode phase, not urgency:
 
 #### Q39 · Define the read/write split for live odds reads
 
-[Issue #39](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/39) · `feat` · `medium` · **Portfolio Depth**
+[Issue #39](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/39) · `feat` · `medium` · **Portfolio Depth**
 
 > What's your read/write split — do live odds reads hit a read replica or Redis cache, while writes go to primary Postgres?
 
@@ -816,7 +816,7 @@ Milestones encode phase, not urgency:
 
 #### Q40 · Handle hot-partition load when one market takes 100x all other traffic
 
-[Issue #40](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/40) · `feat` · `low` · **Future Work**
+[Issue #40](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/40) · `feat` · `low` · **Future Work**
 
 > How do you handle hot-partition problems when one market (e.g., a major event) gets 100x the traffic of everything else combined?
 
@@ -833,7 +833,7 @@ Milestones encode phase, not urgency:
 
 #### Q41 · Implement per-market rate limiting independent of per-user limits
 
-[Issue #41](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/41) · `feat` · `medium` · **Portfolio Depth**
+[Issue #41](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/41) · `feat` · `medium` · **Portfolio Depth**
 
 > Do you need per-market rate limiting/sharding independent of per-user rate limiting?
 
@@ -851,18 +851,18 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [42](#q42) | `feat` | `critical` | MVP | [#42](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/42) | open |
-| [43](#q43) | `feat` | `medium` | Portfolio Depth | [#43](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/43) | open |
-| [44](#q44) | `feat` | `high` | MVP | [#44](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/44) | open |
-| [45](#q45) | `bug` | `critical` | MVP | [#45](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/45) | open |
-| [46](#q46) | `feat` | `high` | MVP | [#46](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/46) | open |
-| [47](#q47) | `feat` | `critical` | MVP | [#47](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/47) | open |
+| [42](#q42) | `feat` | `critical` | MVP | [#42](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/42) | open |
+| [43](#q43) | `feat` | `medium` | Portfolio Depth | [#43](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/43) | open |
+| [44](#q44) | `feat` | `high` | MVP | [#44](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/44) | open |
+| [45](#q45) | `bug` | `critical` | MVP | [#45](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/45) | open |
+| [46](#q46) | `feat` | `high` | MVP | [#46](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/46) | open |
+| [47](#q47) | `feat` | `critical` | MVP | [#47](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/47) | open |
 
 <a id="q42"></a>
 
 #### Q42 · Reject client-asserted odds; require a server-signed quote for execution
 
-[Issue #42](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/42) · `feat` · `critical` · **MVP**
+[Issue #42](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/42) · `feat` · `critical` · **MVP**
 
 > How do I prevent a client from spoofing the odds it 'saw' to force a favorable bet execution?
 
@@ -880,7 +880,7 @@ Milestones encode phase, not urgency:
 
 #### Q43 · Defend bet placement against scripted clients and staleness arbitrage
 
-[Issue #43](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/43) · `feat` · `medium` · **Portfolio Depth**
+[Issue #43](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/43) · `feat` · `medium` · **Portfolio Depth**
 
 > What's your defense against a scripted client hammering the bet-placement endpoint faster than a human (bot arbitrage across odds staleness windows)?
 
@@ -898,7 +898,7 @@ Milestones encode phase, not urgency:
 
 #### Q44 · Authenticate and audit the admin market-creation and grading panel
 
-[Issue #44](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/44) · `feat` · `high` · **MVP**
+[Issue #44](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/44) · `feat` · `high` · **MVP**
 
 > How is the admin market-creation/grading panel authenticated and audited — can I prove who graded what and when?
 
@@ -916,7 +916,7 @@ Milestones encode phase, not urgency:
 
 #### Q45 · Fix the negative-balance exploit on the deduct path — validate and deduct atomically
 
-[Issue #45](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/45) · `bug` · `critical` · **MVP**
+[Issue #45](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/45) · `bug` · `critical` · **MVP**
 
 > How do I prevent negative-balance exploits via race conditions on the deduct-then-validate path (should be validate-then-deduct, atomically)?
 
@@ -934,7 +934,7 @@ Milestones encode phase, not urgency:
 
 #### Q46 · Add replay protection to bet submission: nonces and signed timestamps
 
-[Issue #46](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/46) · `feat` · `high` · **MVP**
+[Issue #46](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/46) · `feat` · `high` · **MVP**
 
 > What's my replay-attack protection on the bet-submission API (nonces, signed timestamps)?
 
@@ -952,7 +952,7 @@ Milestones encode phase, not urgency:
 
 #### Q47 · Log every state-changing action to an immutable, tamper-evident audit log
 
-[Issue #47](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/47) · `feat` · `critical` · **MVP**
+[Issue #47](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/47) · `feat` · `critical` · **MVP**
 
 > Am I logging every state-changing action (bet placed, market graded, balance changed) to an immutable, tamper-evident audit log?
 
@@ -970,16 +970,16 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [48](#q48) | `task` | `high` | MVP | [#48](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/48) | open |
-| [49](#q49) | `feat` | `medium` | Portfolio Depth | [#49](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/49) | open |
-| [50](#q50) | `feat` | `medium` | Portfolio Depth | [#50](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/50) | open |
-| [51](#q51) | `feat` | `critical` | MVP | [#51](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/51) | open |
+| [48](#q48) | `task` | `high` | MVP | [#48](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/48) | open |
+| [49](#q49) | `feat` | `medium` | Portfolio Depth | [#49](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/49) | open |
+| [50](#q50) | `feat` | `medium` | Portfolio Depth | [#50](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/50) | open |
+| [51](#q51) | `feat` | `critical` | MVP | [#51](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/51) | open |
 
 <a id="q48"></a>
 
 #### Q48 · Define SLIs and SLOs for bet placement, odds propagation, and settlement
 
-[Issue #48](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/48) · `task` · `high` · **MVP**
+[Issue #48](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/48) · `task` · `high` · **MVP**
 
 > What are your key SLIs — bet-placement latency, odds-propagation latency, settlement completion time — and what are the SLOs?
 
@@ -997,7 +997,7 @@ Milestones encode phase, not urgency:
 
 #### Q49 · Run property-based invariant checks in production to catch silent settlement-math bugs
 
-[Issue #49](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/49) · `feat` · `medium` · **Portfolio Depth**
+[Issue #49](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/49) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you detect a 'silent' bug where settlement math is subtly wrong but no error is thrown (property-based invariant checks running in prod)?
 
@@ -1015,7 +1015,7 @@ Milestones encode phase, not urgency:
 
 #### Q50 · Build a real-time platform liability exposure dashboard per market
 
-[Issue #50](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/50) · `feat` · `medium` · **Portfolio Depth**
+[Issue #50](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/50) · `feat` · `medium` · **Portfolio Depth**
 
 > Do you have real-time dashboards for platform liability exposure per market, so I'd notice before a $1M loss, not after?
 
@@ -1033,7 +1033,7 @@ Milestones encode phase, not urgency:
 
 #### Q51 · Alert on ledger imbalance with a defined detection threshold
 
-[Issue #51](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/51) · `feat` · `critical` · **MVP**
+[Issue #51](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/51) · `feat` · `critical` · **MVP**
 
 > What's your alerting threshold for ledger imbalance (sum of all debits != sum of all credits)?
 
@@ -1051,16 +1051,16 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [52](#q52) | `task` | `medium` | Portfolio Depth | [#52](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/52) | open |
-| [53](#q53) | `task` | `high` | MVP | [#53](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/53) | open |
-| [54](#q54) | `task` | `high` | MVP | [#54](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/54) | open |
-| [55](#q55) | `task` | `low` | Future Work | [#55](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/55) | open |
+| [52](#q52) | `task` | `medium` | Portfolio Depth | [#52](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/52) | open |
+| [53](#q53) | `task` | `high` | MVP | [#53](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/53) | open |
+| [54](#q54) | `task` | `high` | MVP | [#54](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/54) | open |
+| [55](#q55) | `task` | `low` | Future Work | [#55](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/55) | open |
 
 <a id="q52"></a>
 
 #### Q52 · Load-test concurrent bet placement to surface races before users do
 
-[Issue #52](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/52) · `task` · `medium` · **Portfolio Depth**
+[Issue #52](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/52) · `task` · `medium` · **Portfolio Depth**
 
 > How do you load-test concurrent bet placement to surface the race conditions from question 8-14 before users find them?
 
@@ -1078,7 +1078,7 @@ Milestones encode phase, not urgency:
 
 #### Q53 · Add property-based tests fuzzing payout maths with random bet/settlement sequences
 
-[Issue #53](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/53) · `task` · `high` · **MVP**
+[Issue #53](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/53) · `task` · `high` · **MVP**
 
 > Do you have property-based tests generating random bet/settlement sequences to fuzz for payout-math bugs?
 
@@ -1096,7 +1096,7 @@ Milestones encode phase, not urgency:
 
 #### Q54 · Test settlement idempotency by deliberately crashing the job mid-batch
 
-[Issue #54](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/54) · `task` · `high` · **MVP**
+[Issue #54](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/54) · `task` · `high` · **MVP**
 
 > How do you test settlement idempotency — deliberately crash the job mid-batch in a test and assert no double-pay?
 
@@ -1114,7 +1114,7 @@ Milestones encode phase, not urgency:
 
 #### Q55 · Chaos-engineer the real-time layer: kill a pub/sub node mid-event
 
-[Issue #55](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/55) · `task` · `low` · **Future Work**
+[Issue #55](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/55) · `task` · `low` · **Future Work**
 
 > What's your chaos-engineering plan for the real-time layer (kill a pub/sub node mid-event, verify clients resync correctly)?
 
@@ -1132,15 +1132,15 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [56](#q56) | `feat` | `medium` | Portfolio Depth | [#56](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/56) | open |
-| [57](#q57) | `task` | `medium` | Portfolio Depth | [#57](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/57) | open |
-| [58](#q58) | `feat` | `medium` | Portfolio Depth | [#58](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/58) | open |
+| [56](#q56) | `feat` | `medium` | Portfolio Depth | [#56](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/56) | open |
+| [57](#q57) | `task` | `medium` | Portfolio Depth | [#57](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/57) | open |
+| [58](#q58) | `feat` | `medium` | Portfolio Depth | [#58](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/58) | open |
 
 <a id="q56"></a>
 
 #### Q56 · Guarantee zero-downtime deploys do not drop in-flight bet placement
 
-[Issue #56](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/56) · `feat` · `medium` · **Portfolio Depth**
+[Issue #56](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/56) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you guarantee zero-downtime deploys don't drop in-flight bet-placement transactions?
 
@@ -1158,7 +1158,7 @@ Milestones encode phase, not urgency:
 
 #### Q57 · Stand up staging with production-like concurrency load
 
-[Issue #57](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/57) · `task` · `medium` · **Portfolio Depth**
+[Issue #57](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/57) · `task` · `medium` · **Portfolio Depth**
 
 > Do you have a staging environment with production-like concurrency load to catch race conditions before they ship?
 
@@ -1176,7 +1176,7 @@ Milestones encode phase, not urgency:
 
 #### Q58 · Version the odds and settlement calculation logic for auditable payouts
 
-[Issue #58](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/58) · `feat` · `medium` · **Portfolio Depth**
+[Issue #58](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/58) · `feat` · `medium` · **Portfolio Depth**
 
 > How do you version your odds/settlement calculation logic so I can prove *which version* computed a given historical payout?
 
@@ -1194,20 +1194,20 @@ Milestones encode phase, not urgency:
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
-| [59](#q59) | `spike` | `critical` | MVP | [#330](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/330) | open |
-| [60](#q60) | `spike` | `critical` | MVP | [#331](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/331) | open |
-| [61](#q61) | `feat` | `critical` | MVP | [#332](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/332) | open |
-| [62](#q62) | `spike` | `critical` | MVP | [#333](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/333) | open |
-| [63](#q63) | `spike` | `critical` | MVP | [#334](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/334) | open |
-| [64](#q64) | `feat` | `high` | MVP | [#335](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/335) | open |
-| [65](#q65) | `feat` | `high` | Portfolio Depth | [#336](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/336) | open |
-| [66](#q66) | `spike` | `high` | Portfolio Depth | [#337](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/337) | open |
+| [59](#q59) | `spike` | `critical` | MVP | [#330](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/330) | open |
+| [60](#q60) | `spike` | `critical` | MVP | [#331](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/331) | open |
+| [61](#q61) | `feat` | `critical` | MVP | [#332](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/332) | open |
+| [62](#q62) | `spike` | `critical` | MVP | [#333](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/333) | open |
+| [63](#q63) | `spike` | `critical` | MVP | [#334](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/334) | open |
+| [64](#q64) | `feat` | `high` | MVP | [#335](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/335) | open |
+| [65](#q65) | `feat` | `high` | Portfolio Depth | [#336](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/336) | open |
+| [66](#q66) | `spike` | `high` | Portfolio Depth | [#337](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/337) | open |
 
 <a id="q59"></a>
 
 #### Q59 · Define the exposure limit per account, and what it applies to
 
-[Issue #330](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/330) · `spike` · `critical` · **MVP**
+[Issue #330](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/330) · `spike` · `critical` · **MVP**
 
 > What is the per-account exposure limit — is it a fixed amount, a fraction of the account's settled balance, or a market-specific number — and does it cover unmatched back bets, lay liability, or both?
 
@@ -1226,7 +1226,7 @@ Milestones encode phase, not urgency:
 
 #### Q60 · Decide the self-match prevention policy
 
-[Issue #331](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/331) · `spike` · `critical` · **MVP**
+[Issue #331](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/331) · `spike` · `critical` · **MVP**
 
 > Can a customer's own back and lay orders match each other, and if not, at what point is the match rejected — at submission, at match time, or by cancelling afterwards?
 
@@ -1244,7 +1244,7 @@ Milestones encode phase, not urgency:
 
 #### Q61 · Specify order lifecycle: partial fill, remainder, cancel-after-match
 
-[Issue #332](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/332) · `feat` · `critical` · **MVP**
+[Issue #332](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/332) · `feat` · `critical` · **MVP**
 
 > What are the legal states an order moves through — and specifically, what happens to the remainder when a book is only partially filled, and may a customer cancel an order that has already matched in part?
 
@@ -1263,7 +1263,7 @@ Milestones encode phase, not urgency:
 
 #### Q62 · Design the commission model on net winnings
 
-[Issue #333](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/333) · `spike` · `critical` · **MVP**
+[Issue #333](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/333) · `spike` · `critical` · **MVP**
 
 > How is commission calculated on net winnings — per bet, per market per period, on gross winnings or on net profit — and how is it refunded when a bet is voided or a market is re-graded?
 
@@ -1282,7 +1282,7 @@ Milestones encode phase, not urgency:
 
 #### Q63 · Prove on-chain settlement idempotency across retries and reorgs
 
-[Issue #334](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/334) · `spike` · `critical` · **MVP**
+[Issue #334](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/334) · `spike` · `critical` · **MVP**
 
 > How is a Solana settlement made exactly-once per business event — the settlement-nonce account, what happens on RPC timeout and retry, and how is a duplicate payment made impossible?
 
@@ -1301,7 +1301,7 @@ Milestones encode phase, not urgency:
 
 #### Q64 · Define the odds tick-size ladder per market
 
-[Issue #335](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/335) · `feat` · `high` · **MVP**
+[Issue #335](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/335) · `feat` · `high` · **MVP**
 
 > What price increments are valid for a market, who sets them, and how is an off-ladder price handled at submission?
 
@@ -1319,7 +1319,7 @@ Milestones encode phase, not urgency:
 
 #### Q65 · Specify market suspension and in-play behaviour
 
-[Issue #336](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/336) · `feat` · `high` · **Portfolio Depth**
+[Issue #336](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/336) · `feat` · `high` · **Portfolio Depth**
 
 > When a market is suspended mid-event — is trading halted, orders cancelled, or the market left open with a delay — and what happens to orders and matches that were in flight at the moment of suspension?
 
@@ -1337,7 +1337,7 @@ Milestones encode phase, not urgency:
 
 #### Q66 · Define odd-lot handling: who is counterparty to the remainder
 
-[Issue #337](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/337) · `spike` · `high` · **Portfolio Depth**
+[Issue #337](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/337) · `spike` · `high` · **Portfolio Depth**
 
 > When an order cannot be fully filled by the opposite side of the book, who takes the remainder — is the exchange the counterparty at a posted price, is the remainder discarded, or does the order stay live?
 

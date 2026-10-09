@@ -48,9 +48,9 @@ start.
 respect the dependency order in [Architecture](../docs/architecture/README.md). The three questions that block
 most of the others:
 
-- **[Q15](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/15)** — fixed-odds, pari-mutuel, or exchange?
-- **[Q08](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/8)** — what serialises concurrent bets on a market?
-- **[Q36](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/36)** — where are the failure domain boundaries?
+- **[Q15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15)** — fixed-odds, pari-mutuel, or exchange?
+- **[Q08](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/8)** — what serialises concurrent bets on a market?
+- **[Q36](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/36)** — where are the failure domain boundaries?
 
 Answering Q15 wrong invalidates most of the concurrency and liability design. Please do not start there without settling it.
 

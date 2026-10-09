@@ -1,14 +1,14 @@
 blank_issues_enabled: true
 contact_links:
   - name: Report a security vulnerability
-    url: https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/security/advisories/new
+    url: https://github.com/BerlinDeskMudit/ladywalk-odds-engine/security/advisories/new
     about: Do not file money-path or auth vulnerabilities as public issues.
   - name: Open design questions
-    url: https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/blob/main/docs/design/open-questions.md
+    url: https://github.com/BerlinDeskMudit/ladywalk-odds-engine/blob/main/docs/design/open-questions.md
     about: Check whether your question is already tracked before filing a new one.
   - name: Implementation roadmap
-    url: https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/blob/main/docs/roadmap.md
+    url: https://github.com/BerlinDeskMudit/ladywalk-odds-engine/blob/main/docs/roadmap.md
     about: Looking for something to build? The 260-issue plan says what is unblocked and what is not.
   - name: Contributing guidelines
-    url: https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/blob/main/.github/CONTRIBUTING.md
+    url: https://github.com/BerlinDeskMudit/ladywalk-odds-engine/blob/main/.github/CONTRIBUTING.md
     about: How to claim an issue, what "done" means, and the ADR conventions.

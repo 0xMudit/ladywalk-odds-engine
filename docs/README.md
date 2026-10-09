@@ -34,9 +34,9 @@ written**, because the questions that unblock them are still open:
 
 | Planned document | Blocked by |
 | --- | --- |
-| `docs/schema.md` — ERD, and the immutable/mutable column split | [Q02](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/2) |
-| `docs/slos.md` — SLIs, SLOs, error budgets | [Q48](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/48) |
-| `runbooks/` — cap breach, quarantined market, ledger imbalance, kill switch | [Q35](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/35), [Q51](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/51) |
+| `docs/schema.md` — ERD, and the immutable/mutable column split | [Q02](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/2) |
+| `docs/slos.md` — SLIs, SLOs, error budgets | [Q48](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/48) |
+| `runbooks/` — cap breach, quarantined market, ledger imbalance, kill switch | [Q35](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/35), [Q51](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/51) |
 
 They are listed as unwritten rather than stubbed, so that a missing document is
 visible in review instead of being mistaken for an empty one.

@@ -2,7 +2,7 @@
 
 **Status:** Proposed
 **Date:** YYYY-MM-DD
-**Issue:** [#nnn](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/nnn)
+**Issue:** [#nnn](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/nnn)
 **Deciders:** @handle, @handle
 **Supersedes:** none
 
