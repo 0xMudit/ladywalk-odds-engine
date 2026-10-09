@@ -1,54 +1,49 @@
-# LadyWalk Odds Engine
+<div align="center">
 
-**An open-source betting platform, built in public, designed to survive the questions a principal engineer asks before signing off.**
+<h1>LadyWalk Odds Engine</h1>
 
-> **Status: design phase, implementation beginning.** This repository is built from the *question set* and the *roadmap* rather than ahead of them. That is deliberate. The hard part of a betting platform is not writing a bet-placement endpoint — it is the 58 design questions in [open design questions](docs/design/open-questions.md) and the 260 build issues in [Roadmap](docs/roadmap.md), each one a trap that has sunk a real production system. They are tracked as GitHub issues, and each will be closed with a committed artefact, not a paragraph. The [workspace](#repository-layout) now exists, with the `domain` crate — where the rules live — completed first, because it is the crate that can be finished without answering a single open question.
+**An open-source peer-to-peer betting exchange, built in public — designed to survive every question a principal engineer asks before signing off.**
 
-[![Questions tracked](https://img.shields.io/badge/questions-58-informational)](docs/design/open-questions.md)
-[![Build issues](https://img.shields.io/badge/roadmap-260%20issues-success)](docs/roadmap.md)
-[![MVP](https://img.shields.io/badge/milestone-MVP-0%2F35-blue)](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/milestone/1)
-[![Portfolio Depth](https://img.shields.io/badge/milestone-Portfolio-0%2F20-blue)](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/milestone/2)
-[![Future Work](https://img.shields.io/badge/milestone-future-0%2F3-lightgrey)](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/milestone/3)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+The hard part of a betting platform is not a `POST /bets` endpoint. It is money correctness, concurrency under load, provable odds, exactly-once settlement, and adversarial clients. This repository is built from the *question set* and the *roadmap* rather than ahead of them: 66 design questions and 267 build issues, each tracked as a GitHub issue and each closed with a committed artefact — an ADR, a benchmark, or a test that fails against the pre-fix code.
+
+<p>
+<a href="https://github.com/0xMudit/ladywalk-odds-engine/actions/workflows/ci.yml"><img src="https://github.com/0xMudit/ladywalk-odds-engine/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT license" /></a>
+<a href="docs/design/open-questions.md"><img src="https://img.shields.io/badge/design%20questions-66-informational.svg" alt="66 open design questions" /></a>
+<a href="docs/roadmap.md"><img src="https://img.shields.io/badge/roadmap-267%20issues-success.svg" alt="267 build issues" /></a>
+<img src="https://img.shields.io/badge/status-design%20phase-orange.svg" alt="Design phase" />
+<img src="https://img.shields.io/badge/Rust-1.98.1-000000.svg?logo=rust&logoColor=white" alt="Rust 1.98.1" />
+<img src="https://img.shields.io/badge/PostgreSQL-16-4169E1.svg?logo=postgresql&logoColor=white" alt="PostgreSQL 16" />
+</p>
+
+</div>
 
 ---
 
-## Why this repo exists
+> **Status: design phase, implementation beginning.** Two architectural decisions are settled — the betting model ([ADR-0001](docs/adr/0001-peer-to-peer-exchange.md)) and the settlement layer ([ADR-0002](docs/adr/0002-solana-settlement.md)) — and everything else is still an open question. The Cargo workspace exists and the `domain` crate, where the betting rules live, is implemented first, because it is the one crate that can be finished without answering a single open design question. No service is deployed.
+
+## Why this repository exists
 
 Most betting-platform projects are a `POST /bets` endpoint and a `Decimal` field that quietly becomes a `float`. The interesting engineering is everything around it:
 
 - **Money correctness.** Integer minor units, an append-only double-entry ledger, a zero-tolerance sum-to-zero invariant, and reversal-by-compensation instead of mutation.
-- **Concurrency under load.** What serialises 10,000 bet placements on one market inside 50ms — and how that choice constrains horizontal scaling.
-- **Odds you can prove.** An immutable odds history so that any historical payout can be reproduced byte-for-byte, with the calculation version that produced it.
-- **Settlement that is exactly-once.** A job that can crash at 70% and resume without double-paying anyone or skipping anyone.
-- **Adversarial clients.** The client must never be able to assert its own price. A bot is faster and more patient than you are.
+- **Concurrency under load.** What serialises concurrent orders on one market — and how that choice constrains horizontal scaling.
+- **Odds you can prove.** An immutable odds history, so any historical payout can be reproduced byte-for-byte, with the calculation version that produced it.
+- **Settlement that is exactly-once.** A settlement job that can crash partway and resume without double-paying anyone or skipping anyone.
+- **Adversarial clients.** In an exchange the client proposes the price — but the matching engine decides the match. Price-time priority is a correctness property, not a performance detail.
 
-The point of tracking the questions publicly is that **"we thought about it" is not the same as "we measured it"**. Every issue carries acceptance criteria that require an artefact — an ADR, a benchmark, a test that fails against the pre-fix code.
+Every question is tracked publicly because **"we thought about it" is not the same as "we measured it."** Acceptance criteria require an artefact, not a paragraph.
 
-## Start here
+## The design questions at a glance
 
-| | |
-| --- | --- |
-| [open design questions](docs/design/open-questions.md) | The 58 design questions, grouped by subsystem, each linked to its issue |
-| [Roadmap](docs/roadmap.md) | The 260-issue implementation plan, 15 epics, first commit to production |
-| [All 318 issues](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues) | The actual work |
-| [Architecture](docs/architecture/README.md) | Which decisions are still open, and which issues will close them |
-| [Decision records](docs/adr/) | Why a decision was made, what was rejected, and what would reopen it |
-| [All documentation](docs/) | Index of everything written down about this system |
-| [Contributing](.github/CONTRIBUTING.md) | How to claim an issue, what "done" means, ADR conventions |
-| [Security](.github/SECURITY.md) | Reporting a vulnerability in the money path |
-| [Code of Conduct](.github/CODE_OF_CONDUCT.md) | Expectations, and how to report a concern privately |
-
-## The questions at a glance
-
-58 questions across 11 subsystems. The type is derived from the wording — a question about something that *could be wrong* is a `bug`, a question about something that *must be built* is a `feat`, a question that *cannot be answered without measuring* is a `spike`.
+66 open questions (`Q01`–`Q66`) across 12 subsystems, one GitHub issue each. The type is derived from the wording: a question about something that *could be wrong* is a `bug`, something that *must be built* is a `feat`, something that *cannot be answered without measuring* is a `spike`.
 
 | Subsystem | Q | Covers |
 | --- | --: | --- |
 | Data Modeling & Correctness | 7 | money representation, schema, ledger, odds versioning, voids |
 | Concurrency & Consistency | 7 | serialization, ACID boundaries, TOCTOU, locking, idempotency |
-| Odds Engine | 6 | fixed-odds vs pari-mutuel vs exchange, vig, curves, liability, slippage |
-| Real-Time Delivery | 5 | transport, fanout at 100K, resync, backpressure, hot markets |
+| Betting Model | 6 | exchange design, matching, pricing, commission, market mechanics |
+| Real-Time Delivery | 5 | transport, fanout, resync, backpressure, hot markets |
 | Settlement & Grading | 5 | grading model, exactly-once payout, resumability, clawback, reconciliation |
 | Failure Modes & Reliability | 5 | fail safe vs fail open, circuit breakers, quarantine, DR, kill switch |
 | Scalability & Architecture | 6 | service boundaries, latency budget, read/write split, hot partitions, rate limits |
@@ -56,137 +51,156 @@ The point of tracking the questions publicly is that **"we thought about it" is 
 | Observability | 4 | SLIs/SLOs, silent-bug detection, liability dashboards, ledger alerts |
 | Testing | 4 | load, property-based fuzzing, crash injection, chaos |
 | Deployment | 3 | zero-downtime, production-like staging, calc versioning |
+| Exchange Matching | 8 | exposure limits, self-match prevention, partial fills, tick ladder, on-chain idempotency |
 
-**Type split:** 39 `feat` · 15 `task` · 2 `bug` · 2 `spike`
+**Type split:** 42 `feat` · 15 `task` · 2 `bug` · 7 `spike`. **Priority split:** 21 `critical` · 22 `high` · 20 `medium` · 3 `low`.
 
-The two `bug` issues are the ones that would have been shipped by accident:
+The two `bug` issues are the classes that would otherwise ship by accident:
 
-- **[Q10](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/10) — TOCTOU double-spend.** A balance check and a balance deduction that are not one atomic step. Reachable by any user with two concurrent requests, and completely invisible in manual QA.
-- **[Q45](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/45) — negative-balance exploit.** Validate-then-deduct is not atomic, so two requests both pass validation and both deduct.
+- **[Q10 — TOCTOU double-spend.](https://github.com/0xMudit/ladywalk-odds-engine/issues/10)** A balance check and a balance deduction that are not one atomic step. Reachable by any user with two concurrent requests, and invisible in manual QA.
+- **[Q45 — negative-balance exploit.](https://github.com/0xMudit/ladywalk-odds-engine/issues/45)** Validate-then-deduct is not atomic, so two requests both pass validation and both deduct.
 
-## Issue scheme
+## The build roadmap at a glance
 
-318 issues on two tracks. They are kept separate deliberately: a **question** is answered by a
-decision, a **task** is answered by merged code.
+267 build issues across 16 epics (`EP-01`–`EP-16`), ordered from the first commit to a defensible production claim. The build track is separate from the design track on purpose: a question is answered by a decision, a task by merged code.
 
-| Track | IDs | Count | Milestones |
-| --- | --- | --: | --- |
-| **Design** — [open design questions](docs/design/open-questions.md) | `Q01`–`Q58` | 58 | MVP (35) · Portfolio Depth (20) · Future Work (3) |
-| **Build** — [Roadmap](docs/roadmap.md) | `EP-01`–`EP-15`, `F-001`–`F-195`, `H-001`–`H-050` | 260 | B1 Foundations (31) · B2 Money Path (88) · B3 Product (61) · B4 Hardening (80) |
+| Milestone | Issues | Meaning |
+| --- | --: | --- |
+| **B1 · Foundations** | 28 | Tooling, CI, infrastructure, identity. Nothing here touches money, but everything downstream depends on it. |
+| **B2 · Money Path** | 98 | Money type, double-entry ledger, markets, the order book, exposure, settlement, Solana settlement. Highest risk, highest priority. |
+| **B3 · Product** | 58 | Real-time delivery, web client, public API, webhooks, SDKs, observability. |
+| **B4 · Hardening** | 83 | Audit, reconciliation, chaos testing, DR drills, security, compliance, penetration testing. |
+| **Total** | **267** | 16 epics |
 
-The build milestones are a **dependency order**, not a priority ranking. The ledger (`EP-04`)
-exists before bet placement (`EP-05`), because a bet is a ledger movement and not a row insert.
+The milestones are a **dependency order**, not a priority ranking: the ledger (`EP-04`) exists before bet placement (`EP-05`), because a bet is a ledger movement and not a row insert. See the full plan in [`docs/roadmap.md`](docs/roadmap.md).
 
-**Labels.** Every issue carries exactly one `type:`, one `area:`, one `priority:`, and a milestone.
+> **A note on the counts.** The generated indexes are authoritative: [`docs/design/open-questions.md`](docs/design/open-questions.md) lists **66** questions (the original 58 plus 8 exchange questions, `Q59`–`Q66`, added by ADR-0001 and ADR-0002) and [`docs/roadmap.md`](docs/roadmap.md) lists **267** issues across **16** epics (EP-16 added Solana settlement). A few older cross-references still quote the pre-exchange figures (58 questions / 260 issues); the generated files are the source of truth.
 
-- `type:` — `feat` `bug` `task` `chore` `epic` `spike`
-- `area:` — 11 design subsystems plus `tooling` `infra` `identity` `api-sdk` `frontend` `release`
-- `priority:` — `critical` `high` `medium` `low`
-- `phase:` — design track only (`mvp` `portfolio` `future`)
-- `track:build` — the build track
+## What is decided, and what is open
 
-Design questions are ranked `priority:critical` if getting them wrong loses money or breaks a
-regulatory guarantee: 16 of the 58. Across the build track, 84 of 260.
+Two decisions are recorded and are not up for re-litigation without a superseding ADR:
 
-## Planned shape
+- **[ADR-0001 — peer-to-peer exchange](docs/adr/0001-peer-to-peer-exchange.md).** LadyWalk is a customer-to-customer exchange with a price-time priority order book, **not** a bookmaker. There is no vig, no odds curve, and no platform liability cap; revenue is commission on net winnings.
+- **[ADR-0002 — Solana for settlement, matching off-chain](docs/adr/0002-solana-settlement.md).** Settlement moves the net position per `(customer, market, epoch)`, keyed by a settlement nonce so a retry cannot pay twice, with the OIDC-authenticated matching engine kept off-chain.
 
-Not decided yet — the issues are the reason. What is already committed:
+Everything else is still an open question. The remaining spine — the questions most other decisions hang off — is the order-book data structure and per-market serialization ([Q08](https://github.com/0xMudit/ladywalk-odds-engine/issues/8)) and the service boundaries and the money path's failure domain ([Q36](https://github.com/0xMudit/ladywalk-odds-engine/issues/36)).
 
-- **One backend language: Rust.** A single `Money` type across the whole system. A second language
-  would put a conversion boundary on the one value that must never be converted.
-- **Compile-time checked queries.** sqlx validates every query against the schema at build time and
-  the offline `.sqlx/` metadata is committed, so CI fails if a query drifts from the schema.
-- **Money is never a float.** A `Money` newtype over `i64` minor units, `BIGINT` in the database,
-  and a CI gate that fails the build on a float in a money path. ([Q01](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/1))
-- **The ledger is the source of truth, not the balance.** `balance` is a derived projection. Every
-  correction is a compensating entry. ([Q03](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/3))
-- **The server decides the price.** A short-lived, signed quote token. A client-supplied odds value
-  is never trusted. ([Q19](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/19), [Q42](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/42))
-- **Every state change is audited, tamper-evidently.** Hash-chained, append-only, not writable by
-  the application role. ([Q47](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/47))
-- **One switch stops all money movement.** A platform-wide kill switch that halts bet acceptance
-  within seconds, with audited trigger authority. ([Q35](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/35))
+## Capabilities
 
-Stack: Rust · Tokio · Axum · PostgreSQL 16 · Redis Streams · WebSockets · Next.js/TypeScript ·
-Keycloak/OIDC · OpenTelemetry · proptest · testcontainers-rs · k6 · GitHub Actions · Terraform.
+The committed guarantees below are written as if decided — each becomes an ADR when its question closes. They are enforced by the type system, CI gates, and tests, not by convention.
 
-Deliberately **not** chosen: Kafka, an ORM, Kubernetes, and a second backend language. The reasons
-are in [Roadmap](docs/roadmap.md).
+| Guarantee | How it is held |
+| --- | --- |
+| **Money is never a float** | A `MoneyAmount` newtype over `i64` minor units, `BIGINT` in the database, and a CI gate that fails the build on a float in a money path ([Q01](https://github.com/0xMudit/ladywalk-odds-engine/issues/1)). |
+| **The ledger is the source of truth** | `balance` is a derived projection; no code path mutates a posted entry; corrections are compensating entries ([Q03](https://github.com/0xMudit/ladywalk-odds-engine/issues/3)). |
+| **Double-entry sums to zero, with zero tolerance** | Not "within rounding." A reconciliation discrepancy fails the run loudly ([Q04](https://github.com/0xMudit/ladywalk-odds-engine/issues/4)). |
+| **The client proposes the price; the engine decides the match** | An order matches only at a price and size permitted by the tick ladder and the remaining exposure of *both* accounts ([Q19](https://github.com/0xMudit/ladywalk-odds-engine/issues/19), [Q42](https://github.com/0xMudit/ladywalk-odds-engine/issues/42)). |
+| **Exposure is bounded atomically** | A balance may be negative, bounded by a configured exposure limit; the check and the decrement are one atomic step ([Q10](https://github.com/0xMudit/ladywalk-odds-engine/issues/10), [Q45](https://github.com/0xMudit/ladywalk-odds-engine/issues/45)). |
+| **Payouts are exactly-once and resumable** | Idempotency keys everywhere, and a settlement checkpoint written in the same transaction as the payout ([Q13](https://github.com/0xMudit/ladywalk-odds-engine/issues/13), [Q27](https://github.com/0xMudit/ladywalk-odds-engine/issues/27)). |
+| **Odds history is immutable** | Every bet records the odds version it executed against, and every odds version records the calculation version that produced it ([Q05](https://github.com/0xMudit/ladywalk-odds-engine/issues/5)). |
+| **Every state change is audited tamper-evidently** | Hash-chained, append-only, and not writable by the application role ([Q47](https://github.com/0xMudit/ladywalk-odds-engine/issues/47)). |
+| **One switch stops all money movement** | A platform-wide kill switch with audited trigger authority and a measured time-to-halt ([Q35](https://github.com/0xMudit/ladywalk-odds-engine/issues/35)). |
+| **Fail safe, not fail open** | If the odds pipeline dies mid-event, betting on that market halts — trading revenue against financial correctness is a choice, made explicitly ([Q31](https://github.com/0xMudit/ladywalk-odds-engine/issues/31)). |
 
-The three decisions everything else hangs off, in order:
+## What exists today
 
-1. **[Q15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15)** — fixed-odds, pari-mutuel, or exchange? These have completely different concurrency and liability models. Every other subsystem is downstream of this one. **This is why the repository is not yet described as a fixed-odds engine.**
-2. **[Q08](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/8)** — what serialises concurrent bets on one market?
-3. **[Q36](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/36)** — are the wallet and bet placement separate failure domains from odds and market data?
+The workspace builds, and its dependency direction is enforced rather than documented:
 
-## Repository layout
+- **`domain` — the rules, with nothing to stand on.** Money, odds, quotes, orders, matching, the ledger, settlement, and risk. This crate is allowed exactly one external dependency — `serde` — enforced by `crates/domain/tests/dependency_purity.rs` (which reads the crate's own `Cargo.toml`) and by `scripts/check-domain-deps.sh` (which walks the resolved graph with `cargo metadata`). Both run in CI. A rule that cannot be evaluated without a database is a rule nobody will test properly.
+- **`application` — the use cases.** Order, quote, market, wallet, settlement, and reconciliation orchestration behind ports declared in this crate, plus configuration, telemetry, signing, and graceful-shutdown primitives.
+- **`adapters` — the only crate allowed to touch the outside world.** PostgreSQL via `sqlx`, HTTP via Axum, and the initial schema migration. This is the crate that can be replaced, and the one whose tests need containers.
+- **`api` — the versioned public contract**, and **`web` — the server-rendered surface**, kept apart because a browser can be forced to reload but an integrator's integration cannot.
+- **`bin/order-entry` — the thin entrypoint.** Loads configuration (fail-fast on missing keys), initialises tracing, starts the Axum server, and coordinates graceful shutdown. No business logic lives in a binary.
 
-The backend is a Cargo workspace. The crate split is not a matter of taste — it exists to make one
-specific mistake impossible: letting a rule about betting depend on a database, a socket, or a web
-framework.
+**No `.sqlx` metadata is committed, deliberately.** Every money-path statement is written with the runtime `query` / `query_as` forms and exercised against a real database by the test suite, rather than compiled against whatever schema the last developer happened to have running ([`Cargo.toml`](Cargo.toml)).
+
+CI runs five gates: no floats in money paths, generated design/roadmap indexes in sync with the issues, relative documentation links resolve, and the workspace builds, tests, formats, and keeps `domain` infrastructure-free ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+## Requirements
+
+- **Rust 1.98.1**, pinned in [`rust-toolchain.toml`](rust-toolchain.toml) (with `rustfmt` and `clippy`).
+- **Docker** (recommended) to run PostgreSQL 16 and Redis 7, and to build and test without a local Rust install.
+- **PostgreSQL 16** and **Redis 7** are needed to run the service; the `domain` crate's tests need neither.
+
+## Getting started
+
+```bash
+git clone https://github.com/0xMudit/ladywalk-odds-engine.git
+cd ladywalk-odds-engine
+
+# Start dependencies and run the whole workspace's tests in the pinned container
+docker compose up -d postgres redis
+docker compose run --rm dev cargo test --workspace
+
+# Or use a local Rust 1.98.1 toolchain directly
+cargo build --workspace --locked
+cargo test  --workspace --locked
+cargo fmt   --all --check
+./scripts/check-domain-deps.sh      # domain must not reach I/O crates
+```
+
+To run the service locally, copy the environment file and start the binary:
+
+```bash
+cp .env.example .env     # every key with its meaning and default
+docker compose up -d      # postgres + redis
+cargo run --bin order-entry   # serves on 0.0.0.0:8080, graceful shutdown on SIGTERM
+```
+
+Configuration is read from the environment; the full reference is [`.env.example`](.env.example). In staging and production `KILL_SWITCH_ENABLED` must be `true` — a false value in a non-local environment is a startup error.
+
+## Project layout
 
 ```
 crates/
-  domain/        money types, error taxonomy, and the rules of the exchange
-  application/   use cases; config, telemetry, and shutdown primitives
-  adapters/      sqlx, HTTP handlers, and every other I/O edge
-  api/           the public versioned HTTP contract
-  web/           the server-rendered betting surface
+  domain/        money types, error taxonomy, and the rules of the exchange (serde only)
+  application/   use cases; config, telemetry, signing, and shutdown primitives
+  adapters/      sqlx, HTTP handlers, migrations, and every other I/O edge
+  api/           the versioned public HTTP contract
+  web/           the server-rendered surface
 bin/
   order-entry/   the thin binary that wires the above together
+docs/
+  architecture/  the dependency spine, open decisions, committed constraints
+  design/        open-questions.md — the 66 design questions, each linked to its issue
+  adr/           architecture decision records, one file per decision
+  roadmap.md     the 267-issue build plan
+scripts/         domain-dependency and money-type CI gates
+docker-compose.yml   PostgreSQL 16 + Redis 7 + a pinned Rust dev container
 ```
 
-**`domain` — the rules, with nothing to stand on.** Every decision about what a bet is worth, what a
-customer may do, and what must never be allowed happens here, and this crate is allowed exactly two
-external dependencies: `serde`, and a decimal/integer helper. It performs no I/O, holds no
-connection, and knows nothing about HTTP, SQL, or Redis. That restriction is the point: it means the
-part of a betting engine most likely to be wrong — the part that decides — can be tested exhaustively
-with no fixtures, no containers, and no clock. A rule that cannot be evaluated without a database is
-a rule nobody will test properly, and an untested rule about money is an outage.
+The dependency direction is enforced, not merely documented: a rule about betting cannot depend on a database, a socket, or a web framework.
 
-**`application` — what a client can ask for.** Use-case orchestration sits here: place an order,
-quote a price, settle a market. It coordinates `domain` calls and the ports it needs, but reaches
-infrastructure only through traits declared in this crate, so a use case can be exercised with a stub
-ledger. Configuration, tracing, and graceful-shutdown primitives live here too, because they are
-concerns of a running process rather than of any one adapter.
+## Stack
 
-**`adapters` — the only crate allowed to touch the outside world.** PostgreSQL via sqlx, HTTP via
-Axum, and any other external dependency live behind ports that `application` declares. This is the
-crate that can be replaced, and the one whose tests need containers. Keeping I/O confined here is
-what keeps `domain` portable enough to be reasoned about.
+**Committed** (wired in the workspace): Rust 1.98.1 · Tokio · Axum · `sqlx` / PostgreSQL 16 · Redis 7 · `serde` · `thiserror` / `anyhow` · `tracing` · `proptest` · GitHub Actions · Docker (cargo-chef).
 
-**`api` — the contract third parties program against.** Request and response shapes, the error
-envelope, and idempotency semantics are defined in one crate, separately from the transport that
-carries them. The practical payoff is that "is this a breaking change?" becomes answerable: a handler
-in `adapters` can be rewritten freely because nothing outside `api` names it, whereas a field added
-to `api` is versioned because something outside parses it.
-
-**`web` — the server-rendered betting surface.** Kept apart from `api` because the two have opposite
-compatibility requirements: a browser can be forced to reload, an integrator's integration cannot.
-It is a presentation layer over `application` and must not decide anything — a page that needs a
-number asks a use case for it. Server-rendering is what makes "the price you saw is the price the
-server confirmed" structurally true rather than a race the client can lose. The client-side
-application is a TypeScript package outside this workspace.
-
-**`bin/*` — thin entrypoints.** A binary loads configuration, initialises tracing, starts the server,
-and coordinates shutdown. No business logic lives in a binary, because logic in an entrypoint cannot
-be tested by importing it.
-
-The dependency direction is enforced, not merely documented. `crates/domain/tests/dependency_purity.rs`
-asserts the direct dependency list, and `scripts/check-domain-deps.sh` walks the *resolved* graph
-with `cargo metadata` and fails if `adapters`, `application`, `sqlx`, `redis`, or any HTTP framework is
-reachable from `domain`. Both run in CI.
+**Planned** (tracked in the roadmap): Next.js / TypeScript web client (EP-11), Keycloak / OIDC identity (EP-03), OpenTelemetry (EP-13), Solana settlement (EP-16), and Terraform-based infrastructure (EP-02). Deliberately **not** chosen: Kafka, an ORM, Kubernetes, and a second backend language — the reasons are in the [roadmap](docs/roadmap.md).
 
 ## Scope and safety
 
-This is an educational, open-source project. It is **not** a licensed gambling operator, publishes no odds, takes no bets, and handles no real money. All fixtures are synthetic.
+This is an educational, open-source project. It is **not** a licensed gambling operator: it publishes no odds, takes no bets, and handles no real money. All fixtures are synthetic. Legal and regulatory requirements (licensing, age verification, KYC, responsible-gambling tooling, geo-restriction, tax reporting) are treated as **cited research in an ADR, not legal advice**, and are tracked as such in [Q29](https://github.com/0xMudit/ladywalk-odds-engine/issues/29).
 
-Legal and regulatory requirements (licensing, age verification, KYC, responsible-gambling tooling, geo-restriction, tax reporting) are treated as **cited research in an ADR, not legal advice**, and are tracked as such in [Q29](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/29) and [Q15](https://github.com/BerlinDeskMudit/ladywalk-odds-engine/issues/15).
+## Documentation
+
+| Start here | What it is |
+| --- | --- |
+| [`docs/README.md`](docs/README.md) | Index of everything written down about this system. |
+| [`docs/design/open-questions.md`](docs/design/open-questions.md) | The 66 design questions, grouped by subsystem, each linked to its issue. |
+| [`docs/roadmap.md`](docs/roadmap.md) | The 267-issue implementation plan, 16 epics, first commit to production. |
+| [`docs/architecture/README.md`](docs/architecture/README.md) | The dependency spine, what is decided, and what each open question blocks. |
+| [`docs/adr/`](docs/adr/) | Why each decision was made, what was rejected, and what would reopen it. |
+
+The generated indexes are produced from the issue data; CI fails if they drift, so change the source and regenerate rather than hand-editing them.
 
 ## Contributing
 
-Claim an issue, satisfy its acceptance criteria, close it with the artefact linked. See [Contributing](.github/CONTRIBUTING.md).
+Claim an issue, satisfy its acceptance criteria, and close it with the artefact linked — an issue is closed when an artefact is committed, not when a paragraph is typed. The two-track model, the ADR process, the conventional-commit style, and the workflow are in [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md). Expectations and how to report a concern privately are in [`.github/CODE_OF_CONDUCT.md`](.github/CODE_OF_CONDUCT.md).
+
+## Security
+
+Do not open a public issue for a security vulnerability, especially one in the money path. Report it privately via GitHub's **Security → Report a vulnerability**, following [`.github/SECURITY.md`](.github/SECURITY.md). A race condition that can produce a negative balance is `critical` regardless of how hard it is to reproduce.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE).
