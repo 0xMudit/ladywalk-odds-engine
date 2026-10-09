@@ -1,0 +1,12 @@
+# Clippy configuration for the whole workspace.
+#
+# This file is read by `cargo clippy` from the workspace root.
+
+# `doc_markdown` asks for backticks around anything that looks like an
+# identifier. The product name is not an identifier, and backticking it in
+# every doc comment would be noise, so it is declared a valid ident here
+# rather than suppressed with a crate-level `allow`.
+doc-valid-idents = ["LadyWalk", "ORDER-ENTRY", "SQLX_OFFLINE", "PITR", "OIDC", "RBAC", "SBOM", "TOCTOU", "TypeScript"]
+
+# Every crate denies `clippy::pedantic` in its own `lib.rs`, which is where a
+# reviewer looking at a crate can see the strictness it is held to.

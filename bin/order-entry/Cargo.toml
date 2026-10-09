@@ -1,0 +1,26 @@
+[package]
+name        = "order-entry"
+version     = "0.1.0"
+edition     = "2021"
+description = "Order-entry service binary. Thin: config, tracing init, server start, graceful shutdown."
+
+[[bin]]
+name = "order-entry"
+path = "src/main.rs"
+
+[dependencies]
+domain      = { path = "../../crates/domain" }
+application = { path = "../../crates/application" }
+adapters    = { path = "../../crates/adapters" }
+serde       = { workspace = true }
+serde_json  = { workspace = true }
+tokio       = { workspace = true }
+tokio-util  = { workspace = true }
+tracing     = { workspace = true }
+tracing-subscriber         = { workspace = true }
+tracing-bunyan-formatter   = { workspace = true }
+axum        = { workspace = true }
+tower-http  = { workspace = true }
+uuid        = { workspace = true }
+anyhow      = { workspace = true }
+dotenvy     = { workspace = true }

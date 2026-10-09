@@ -1,0 +1,9 @@
+[package]
+name        = "web"
+version     = "0.1.0"
+edition     = "2021"
+description = "The server-rendered betting surface served to browsers, as distinct from the JSON api crate."
+
+[dependencies]
+domain      = { path = "../domain" }
+application = { path = "../application" }

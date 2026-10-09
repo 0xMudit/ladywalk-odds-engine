@@ -1,0 +1,89 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/domain",
+    "crates/application",
+    "crates/adapters",
+    "crates/api",
+    "crates/web",
+    "bin/order-entry",
+]
+
+# Workspace-wide dependency versions — pin everything here, crates inherit with
+# { workspace = true }. A version lives here only once a crate actually uses
+# it; declaring a crate here does not put it in any dependency graph.
+[workspace.dependencies]
+# Serialisation
+serde        = { version = "1.0.219",  features = ["derive"] }
+serde_json   = { version = "1.0.140" }
+
+# Async runtime
+tokio        = { version = "1.45.1",  features = ["full"] }
+# `rt` is the feature that gates `tokio_util::sync::CancellationToken`. The
+# crate has no separate `sync` feature.
+tokio-util   = { version = "0.7.15",  features = ["rt"] }
+
+# Web framework
+# `ws` carries the market event stream. The subscription endpoint is part of the
+# exchange contract rather than an optional extra, so the feature is enabled here
+# instead of behind a flag nobody turns on in production.
+axum         = { version = "0.8.4",   features = ["macros", "ws"] }
+tower        = { version = "0.5.2" }
+tower-http   = { version = "0.6.6",   features = ["trace", "request-id", "cors"] }
+
+# Object-safe async traits. Rust's native `async fn` in traits is not dyn-safe,
+# and the ports are handed out as `dyn` so a unit of work can expose one
+# repository per call site.
+async-trait = { version = "0.1.83" }
+
+# Price signing. HMAC-SHA256 for the quote token. The comparison itself is the
+# constant-time one already in `domain`, so `subtle` is not needed.
+hmac     = { version = "0.12.1" }
+sha2     = { version = "0.10.8" }
+hex      = { version = "0.4.3" }
+
+# Database
+# `migrate` supplies `sqlx::migrate!`, which embeds `crates/adapters/migrations`
+# into the binary. The runtime image ships no separate migration runner, so the
+# service must be able to apply its own schema before it answers a request.
+#
+# Note the deliberate absence of the `query!`/`query_as!` codegen macros in
+# use below. This repository commits no `.sqlx` metadata directory, so an
+# offline macro build would type-check against whatever schema the last
+# developer happened to have running locally. Every money-path statement is
+# therefore written with the runtime `query`/`query_as::<_, T>` forms and
+# exercised against a real database by the test suite instead.
+sqlx         = { version = "0.8.5",   features = ["postgres", "runtime-tokio", "macros", "uuid", "chrono", "migrate"] }
+
+# Env loading
+dotenvy      = { version = "0.15.7" }
+
+# Tracing / observability
+tracing              = { version = "0.1.41" }
+tracing-subscriber   = { version = "0.3.19", features = ["env-filter", "json"] }
+tracing-bunyan-formatter = { version = "0.3.3" }
+
+# Error handling
+thiserror    = { version = "2.0.12" }
+anyhow       = { version = "1.0.98" }
+
+# IDs
+uuid         = { version = "1.16.0",  features = ["v4", "serde"] }
+
+# Time
+chrono       = { version = "0.4.41",  features = ["serde"] }
+
+# Testing
+proptest     = { version = "1.6.0" }
+
+[profile.release]
+opt-level     = 3
+lto           = "thin"
+codegen-units = 1
+strip         = "debuginfo"
+
+[profile.dev]
+opt-level = 0
+
+[profile.test]
+opt-level = 1

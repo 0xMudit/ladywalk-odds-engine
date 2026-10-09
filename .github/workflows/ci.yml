@@ -18,18 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Look for float-typed money columns in migrations and schema
-        run: |
-          set -euo pipefail
-          PATTERN='\b(FLOAT|DOUBLE[[:space:]]+PRECISION|REAL|NUMERIC)\b'
-          HITS=$(git grep -nIE "$PATTERN" -- \
-            'migrations/**' 'schema/**' 'crates/**/migrations/**' 'db/**' 'docs/schema.md' 2>/dev/null || true)
-          if [ -n "$HITS" ]; then
-            echo "::error::float-typed money column found. Money is BIGINT minor units."
-            echo "$HITS"
-            exit 1
-          fi
-          echo "no float-typed money columns"
+      # The scan lives in the script so that it can strip comments before
+      # matching. An inline copy of the pattern here matched the migration's own
+      # documentation of the rule, which is the kind of gate a contributor
+      # learns to route around.
+      - name: Look for float-typed money columns in migrations
+        run: bash ./scripts/check-migration-money-types.sh
 
       - name: Look for a float in a Money-bearing Rust module
         run: |
@@ -37,11 +31,21 @@ jobs:
           # f32/f64 and every explicit cast or conversion into them. `as f64` is the
           # one that actually ships, so it is listed first.
           PATTERN='\bas[[:space:]]+f(32|64)\b|\bf(32|64)::from\b|\bf(32|64)[[:space:]]*[,)=;]|\bmut[[:space:]]+x[[:space:]]*:[[:space:]]*f(32|64)\b'
+          # Both the `foo.rs` and the `foo/` spellings, because a glob that
+          # matches only the directory form silently scans nothing and reports
+          # a pass. The list is the set of modules that move money: a money
+          # module added later has to be added here, which is the trade for
+          # being able to prove the claim.
           HITS=$(git grep -nIE "$PATTERN" -- \
-            'crates/*/src/money/**' 'crates/*/src/wallet/**' 'crates/*/src/ledger/**' \
-            'crates/*/src/odds/**' 'crates/*/src/settlement/**' 'crates/*/src/payout/**' \
-            'src/money/**' 'src/wallet/**' 'src/ledger/**' 'src/odds/**' \
-            'src/settlement/**' 'src/payout/**' 2>/dev/null || true)
+            ':(glob)crates/*/src/money.rs'   ':(glob)crates/*/src/money/**' \
+            ':(glob)crates/*/src/wallet.rs'  ':(glob)crates/*/src/wallet/**' \
+            ':(glob)crates/*/src/ledger.rs'  ':(glob)crates/*/src/ledger/**' \
+            ':(glob)crates/*/src/odds.rs'    ':(glob)crates/*/src/odds/**' \
+            ':(glob)crates/*/src/quote.rs'   ':(glob)crates/*/src/quote/**' \
+            ':(glob)crates/*/src/risk.rs'    ':(glob)crates/*/src/risk/**' \
+            ':(glob)crates/*/src/settlement.rs' ':(glob)crates/*/src/settlement/**' \
+            ':(glob)crates/*/src/payout.rs'  ':(glob)crates/*/src/payout/**' \
+            2>/dev/null || true)
           if [ -n "$HITS" ]; then
             echo "::error::float found in a money path. Money is a newtype over i64 minor units."
             echo "$HITS"
@@ -208,7 +212,35 @@ jobs:
           print("all relative markdown links resolve")
           PY
 
-# Rust toolchain gates (fmt, clippy at pedantic with warnings denied, cargo test,
-# sqlx offline metadata verification) are added in F-005 / F-186, once the Cargo
-# workspace exists. They are not stubbed here, because a CI job that cannot pass
-# teaches contributors to ignore CI.
+  rust-workspace:
+    # F-001 — the workspace exists, builds, and its dependency direction is
+    # enforced. A workspace that does not compile is not a foundation.
+    name: Workspace builds and dependency direction holds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install the pinned toolchain
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain || rustup toolchain install
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --workspace --locked
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+      - name: Domain must be infrastructure-free
+        run: ./scripts/check-domain-deps.sh
+
+# Rust toolchain gates beyond the above — clippy at pedantic with warnings
+# denied, cargo-deny, cargo-audit, and the SBOM upload — are F-005 (#67), which
+# owns the supply-chain half of the lint story. They are not stubbed here,
+# because a CI job that cannot pass teaches contributors to ignore CI.
+

@@ -1,0 +1,110 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# LadyWalk local development environment
+#
+# Usage:
+#   docker compose up -d          # start all services
+#   docker compose up -d postgres # start only postgres
+#   docker compose logs -f        # tail logs
+#   docker compose down -v        # stop + remove volumes
+#
+# The `dev` service mounts the workspace source and runs cargo tests inside
+# the official Rust container — no local Rust install required.
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── PostgreSQL 16 ──────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16.4-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ladywalk
+      POSTGRES_PASSWORD: ladywalk_dev
+      POSTGRES_DB:       ladywalk
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ladywalk -d ladywalk"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ── Redis 7 (for kill-switch, rate-limiting, pub/sub) ─────────────────────
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "ladywalk_dev"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "ladywalk_dev", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ── Rust dev container (build + test without local Rust install) ───────────
+  # The image tag matches the toolchain pinned in rust-toolchain.toml, so cargo
+  # runs without any rustup fetch. Only the registry and git caches are
+  # volume-mounted: mounting over /usr/local/cargo itself would hide the
+  # toolchain the image ships.
+  dev:
+    image: rust:1.98.1-bookworm
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - cargo_cache:/usr/local/cargo/registry
+      - cargo_git:/usr/local/cargo/git
+      - target_cache:/workspace/target
+    environment:
+      APP_ENVIRONMENT:       local
+      DATABASE_URL:          postgres://ladywalk:ladywalk_dev@postgres:5432/ladywalk
+      REDIS_URL:             redis://:ladywalk_dev@redis:6379
+      KILL_SWITCH_ENABLED:   "false"
+      LOG_LEVEL:             debug
+      JSON_LOGS:             "false"
+      SQLX_OFFLINE:          "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # Override command to run tests: docker compose run dev cargo test
+    command: cargo build --workspace
+
+  # ── sqlx migrate (one-shot, runs migrations then exits) ───────────────────
+  migrate:
+    image: rust:1.98.1-bookworm
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - cargo_cache:/usr/local/cargo/registry
+      - cargo_git:/usr/local/cargo/git
+      - target_cache:/workspace/target
+    environment:
+      CARGO_HOME: /usr/local/cargo
+      RUSTUP_HOME: /usr/local/rustup
+      DATABASE_URL: postgres://ladywalk:ladywalk_dev@postgres:5432/ladywalk
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Install sqlx-cli and run migrations
+    command: >
+      bash -c "
+        cargo install sqlx-cli --no-default-features --features postgres --locked --version 0.8.5 &&
+        sqlx migrate run --source crates/adapters/migrations
+      "
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+  redis_data:
+  cargo_cache:
+  cargo_git:
+  target_cache:

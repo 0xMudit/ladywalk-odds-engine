@@ -1,0 +1,6 @@
+[build]
+rustflags = [
+    # Treat all clippy warnings as errors in CI.
+    # Local dev: set RUSTFLAGS="" to override.
+    "-D", "warnings",
+]

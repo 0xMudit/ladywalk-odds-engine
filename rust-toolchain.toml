@@ -1,0 +1,10 @@
+# The toolchain is pinned so that a build on a contributor's machine and a
+# build in CI produce the same binary. Bump this in its own commit, and in the
+# same commit regenerate Cargo.lock, so the two never disagree.
+#
+# 1.87.0 could not build the dependency graph at all: with no committed
+# Cargo.lock, Cargo resolves every dependency to its newest semver-compatible
+# release, and several of those now declare `rust-version = 1.88`.
+[toolchain]
+channel = "1.98.1"
+components = ["rustfmt", "clippy"]

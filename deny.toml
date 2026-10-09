@@ -1,0 +1,56 @@
+# cargo-deny configuration (F-005 · #67)
+# Run: cargo deny check
+# CI: cargo deny check --hide-inclusion-graph
+
+[graph]
+targets = [
+    { triple = "x86_64-unknown-linux-gnu" },
+    { triple = "aarch64-unknown-linux-gnu" },
+]
+
+# ─── Advisories ──────────────────────────────────────────────────────────────
+[advisories]
+# Fail the build when any known vulnerability is present.
+version = 2
+db-path    = "~/.cargo/advisory-db"
+db-urls    = ["https://github.com/rustsec/advisory-db"]
+vulnerability = "deny"
+unmaintained  = "warn"
+yanked        = "deny"
+notice        = "warn"
+
+# ─── Licences ────────────────────────────────────────────────────────────────
+[licenses]
+version = 2
+# Allow only permissive licences; GPL/AGPL/CC-BY-SA are rejected.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-DFS-2016",
+    "CC0-1.0",
+    "Zlib",
+    "OpenSSL",
+]
+deny = []
+# Crates whose licence cannot be determined
+unlicensed = "deny"
+copyleft   = "deny"
+
+# ─── Bans ────────────────────────────────────────────────────────────────────
+[bans]
+# Fail if any crate is duplicated at different semver-incompatible versions,
+# unless explicitly allowed below.
+multiple-versions = "warn"
+wildcards         = "deny"
+highlight         = "all"
+
+# ─── Sources ─────────────────────────────────────────────────────────────────
+[sources]
+# Only allow crates from crates.io and this workspace.
+unknown-registry = "deny"
+unknown-git      = "deny"
+allow-registry   = ["https://github.com/rust-lang/crates.io-index"]

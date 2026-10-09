@@ -1,12 +1,12 @@
 # Open design questions
 
-> 58 questions a staff/principal engineer would force you to answer before signing off on the design. **One GitHub issue per question.** This file is the index; the issues are the work.
+> 66 questions a staff/principal engineer would force you to answer before signing off on the design. **One GitHub issue per question.** This file is the index; the issues are the work.
 
 This is the **design track**. The implementation track is the
 [roadmap](../roadmap.md), and the decisions that get made here land as ADRs in
 [`../adr/`](../adr/).
 
-[repo](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine) · [all 58 issues](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues) · [open](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aopen) · [closed](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aclosed) · [MVP milestone](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/milestone/1)
+[repo](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine) · [all 66 issues](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues) · [open](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aopen) · [closed](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues?q=is%3Aissue+is%3Aclosed) · [MVP milestone](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/milestone/1)
 
 ## How this works
 
@@ -16,36 +16,37 @@ A question is **not** answered because someone typed a paragraph. It is answered
 | --- | --- | --- |
 | `type:` | `feat` · `bug` · `task` · `spike` | `feat` capability to build · `bug` defect class to eliminate · `task` process/ops/research · `spike` needs measurement before a decision |
 | `priority:` | `critical` · `high` · `medium` · `low` | `critical` = money-correctness or regulatory safety · `high` = blocks a core guarantee |
-| `area:` | 11 subsystem labels | see the section headings below |
+| `area:` | subsystem labels | see the section headings below |
 
 Milestones encode phase, not urgency:
 
 | Milestone | Count | Meaning |
 | --- | --- | --- |
-| **MVP** | 35 | Needed before the platform can honestly be called shippable. |
-| **Portfolio Depth** | 20 | Separates a working demo from a defensible design. Answer, partial implementations acceptable. |
+| **MVP** | 41 | Needed before the platform can honestly be called shippable. |
+| **Portfolio Depth** | 22 | Separates a working demo from a defensible design. Answer, partial implementations acceptable. |
 | **Future Work** | 3 | Not needed yet. Document the design and the trigger. |
 
-**Type split:** 39 `feat` · 15 `task` · 2 `bug` · 2 `spike`  
-**Priority split:** 16 `critical` · 19 `high` · 20 `medium` · 3 `low`
+**Type split:** 42 `feat` · 15 `task` · 2 `bug` · 7 `spike`
+**Priority split:** 21 `critical` · 22 `high` · 20 `medium` · 3 `low`
 
 ## Progress
 
-**0 / 58 closed** (0%)
+**0 / 66 closed** (0%)
 
 | # | Area | Issues | Closed |
 | --: | --- | --: | --: |
-| 1–7 | [Data Modeling & Correctness](#data-modeling-correctness) | 7 | 0 |
-| 8–14 | [Concurrency & Consistency](#concurrency-consistency) | 7 | 0 |
-| 15–20 | [Odds Engine](#odds-engine) | 6 | 0 |
-| 21–25 | [Real-Time Delivery](#real-time-delivery) | 5 | 0 |
-| 26–30 | [Settlement & Grading](#settlement-grading) | 5 | 0 |
-| 31–35 | [Failure Modes & Reliability](#failure-modes-reliability) | 5 | 0 |
-| 36–41 | [Scalability & Architecture](#scalability-architecture) | 6 | 0 |
-| 42–47 | [Security](#security) | 6 | 0 |
-| 48–51 | [Observability](#observability) | 4 | 0 |
-| 52–55 | [Testing](#testing) | 4 | 0 |
-| 56–58 | [Deployment](#deployment) | 3 | 0 |
+| 1–7 | [Data Modeling & Correctness](#q01) | 7 | 0 |
+| 8–14 | [Concurrency & Consistency](#q08) | 7 | 0 |
+| 15–20 | [Betting Model](#q15) | 6 | 0 |
+| 21–25 | [Real-Time Delivery](#q21) | 5 | 0 |
+| 26–30 | [Settlement & Grading](#q26) | 5 | 0 |
+| 31–35 | [Failure Modes & Reliability](#q31) | 5 | 0 |
+| 36–41 | [Scalability & Architecture](#q36) | 6 | 0 |
+| 42–47 | [Security](#q42) | 6 | 0 |
+| 48–51 | [Observability](#q48) | 4 | 0 |
+| 52–55 | [Testing](#q52) | 4 | 0 |
+| 56–58 | [Deployment](#q56) | 3 | 0 |
+| 59–66 | [Exchange Matching](#q59) | 8 | 0 |
 
 ---
 
@@ -320,7 +321,7 @@ Milestones encode phase, not urgency:
 - [ ] Client contract for re-quote defined and documented
 - [ ] Race test: a bet arriving after market close is rejected, not silently accepted
 
-## Odds Engine
+## Betting Model
 
 | Q | Type | Priority | Phase | Issue | Status |
 | --: | --- | --- | --- | --- | --- |
@@ -1189,8 +1190,163 @@ Milestones encode phase, not urgency:
 - [ ] ADR on the versioning scheme (semver vs monotonic integer vs git SHA)
 - [ ] Demonstrate reproducing a specific historical payout byte-for-byte
 
----
+## Exchange Matching
 
-## Adding a question
+| Q | Type | Priority | Phase | Issue | Status |
+| --: | --- | --- | --- | --- | --- |
+| [59](#q59) | `spike` | `critical` | MVP | [#330](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/330) | open |
+| [60](#q60) | `spike` | `critical` | MVP | [#331](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/331) | open |
+| [61](#q61) | `feat` | `critical` | MVP | [#332](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/332) | open |
+| [62](#q62) | `spike` | `critical` | MVP | [#333](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/333) | open |
+| [63](#q63) | `spike` | `critical` | MVP | [#334](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/334) | open |
+| [64](#q64) | `feat` | `high` | MVP | [#335](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/335) | open |
+| [65](#q65) | `feat` | `high` | Portfolio Depth | [#336](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/336) | open |
+| [66](#q66) | `spike` | `high` | Portfolio Depth | [#337](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/337) | open |
 
-Questions are not written by hand in two places. Edit `issues.json` in the generator, re-run it, and this file plus the GitHub issue are produced from the same source. New findings go in as issues with the `area:` label and get a `Qnn` number on merge.
+<a id="q59"></a>
+
+#### Q59 · Define the exposure limit per account, and what it applies to
+
+[Issue #330](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/330) · `spike` · `critical` · **MVP**
+
+> What is the per-account exposure limit — is it a fixed amount, a fraction of the account's settled balance, or a market-specific number — and does it cover unmatched back bets, lay liability, or both?
+
+**Why it matters.** An unmatched back bet makes the customer a debtor. Without an explicit bound, the platform is the counterparty by accident, and the 'platform liability cap' that used to protect it is gone now that there is no vig model to size it against. This limit is what makes 'bounded negative customer exposure' a real bound rather than a promise.
+
+**Acceptance criteria**
+
+- [ ] Written policy: the exact limit, what it is measured against, and when it is re-evaluated
+- [ ] Explicit answer on whether exposure is per-bet, per-market, per-outcome, or account-wide, with the reasoning for that choice
+- [ ] Decision on whether a lay bet's potential liability counts against the same limit as an unmatched back stake
+- [ ] Decision on who can raise a customer's limit, and whether it is audited and time-boxed
+- [ ] Property test: no sequence of accepted orders can drive an account past its limit, including under concurrent submission
+- [ ] Chosen limit fed back into #8 and the order-book design
+
+<a id="q60"></a>
+
+#### Q60 · Decide the self-match prevention policy
+
+[Issue #331](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/331) · `spike` · `critical` · **MVP**
+
+> Can a customer's own back and lay orders match each other, and if not, at what point is the match rejected — at submission, at match time, or by cancelling afterwards?
+
+**Why it matters.** Self-matching is usually a mistake and occasionally fraud: it moves value between a customer's own accounts to fabricate turnover. The rule must be stated before the matching engine exists, because retrofitting it means re-deriving every historical match.
+
+**Acceptance criteria**
+
+- [ ] Written policy: self-matching is rejected, permitted, or permitted-then-cancelled, and the exact matching rule for accounts that share an owner
+- [ ] Definition of 'the same customer' — one account, a household, a common beneficial owner — with the authority used to detect it
+- [ ] Decision on pre-existing exposure created before a relationship is detected, and whether the pair is unwound or held
+- [ ] Property test: for any order sequence, self-matched exposure is always either rejected or fully unwound, never left in place
+- [ ] Audit log records the self-match check outcome for every match attempt
+
+<a id="q61"></a>
+
+#### Q61 · Specify order lifecycle: partial fill, remainder, cancel-after-match
+
+[Issue #332](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/332) · `feat` · `critical` · **MVP**
+
+> What are the legal states an order moves through — and specifically, what happens to the remainder when a book is only partially filled, and may a customer cancel an order that has already matched in part?
+
+**Why it matters.** A bookmaker's bet is atomic: it is placed or it is not. An exchange order is not. Partial fills create a remainder that someone is exposed on and nobody has decided what should happen to, and cancel-after-match is a genuine dispute surface that has to be answered before customers rely on it.
+
+**Acceptance criteria**
+
+- [ ] State diagram for order states with every legal and illegal transition enumerated
+- [ ] Explicit decision on whether the remainder stays live in the book or is cancelled when the book is exhausted
+- [ ] Answer on cancel-after-match: does it cancel the remainder, refuse entirely, or partially fill first
+- [ ] Answer on whether a matched bet can be cancelled by the customer, by the exchange, or by neither
+- [ ] Invariant: the sum of every fill, the remainder, and any released exposure always equals the original order size, proven by property test
+- [ ] Every transition is an audited ledger event, not a memory write
+
+<a id="q62"></a>
+
+#### Q62 · Design the commission model on net winnings
+
+[Issue #333](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/333) · `spike` · `critical` · **MVP**
+
+> How is commission calculated on net winnings — per bet, per market per period, on gross winnings or on net profit — and how is it refunded when a bet is voided or a market is re-graded?
+
+**Why it matters.** There is no vig, so this replaces the entire revenue calculation the old design had. Charging on gross rather than net means a customer pays commission on money they never won, which is the single easiest way for an exchange to lose trust with its users — and the void path is where commission models are usually wrong.
+
+**Acceptance criteria**
+
+- [ ] Written model: base, what it applies to, when it is charged, and the rounding direction
+- [ ] Decision on whether commission is charged per bet or netted per market per period, with the reasoning
+- [ ] Property test: no sequence of bets, voids or re-grades produces a negative commission refund that exceeds the commission charged
+- [ ] Answer on void behaviour: is commission fully reversed, pro-rated, or retained
+- [ ] Integer-only arithmetic end to end, with no float and no implicit rounding at any step
+- [ ] Customer-facing example: one customer's full session, from acceptance to settlement, with every commission movement shown
+
+<a id="q63"></a>
+
+#### Q63 · Prove on-chain settlement idempotency across retries and reorgs
+
+[Issue #334](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/334) · `spike` · `critical` · **MVP**
+
+> How is a Solana settlement made exactly-once per business event — the settlement-nonce account, what happens on RPC timeout and retry, and how is a duplicate payment made impossible?
+
+**Why it matters.** A signed transaction cannot execute twice, but a retry that builds a second transaction can pay twice, and RPC timeouts make retries unavoidable. This is the most likely way an on-chain exchange loses money, so it is a correctness requirement, not an optimisation. Devnet and testnet also do not exercise reorg behaviour, so the design has to be right without the cluster telling us we got it wrong.
+
+**Acceptance criteria**
+
+- [ ] Settlement-nonce PDA derived from (customer, market, epoch), with the derivation shown
+- [ ] Program rejects a second settlement for a nonce, proven by a test that submits the same settlement twice
+- [ ] Written retry policy: what triggers a retry, what triggers a rebuild, and what aborts to manual review
+- [ ] Answer on cluster fork and slot expiry: is the settlement re-submitted, confirmed by resubmission, or escalated
+- [ ] Invariant: for any sequence of network responses, a customer's net position moves at most once per settlement key
+- [ ] CI runs the full settlement path twice against a local validator and proves the second run is a no-op
+
+<a id="q64"></a>
+
+#### Q64 · Define the odds tick-size ladder per market
+
+[Issue #335](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/335) · `feat` · `high` · **MVP**
+
+> What price increments are valid for a market, who sets them, and how is an off-ladder price handled at submission?
+
+**Why it matters.** Prices are customer-proposed now, so they must be constrained to a valid set or the book fills with prices nobody intends. This replaces the old overround and margin validation as the mechanism that keeps prices sane.
+
+**Acceptance criteria**
+
+- [ ] Ladder definition: valid increments per price range, and where the range boundaries sit
+- [ ] Answer on who sets the ladder — configuration, or derived from the market's own price range
+- [ ] Decision on an off-ladder price at submission: reject, round, or accept with a warning, and which is default
+- [ ] Property test: every price in the book is on a valid ladder step
+- [ ] Ladder changes are audited events and cannot rewrite a book already populated
+
+<a id="q65"></a>
+
+#### Q65 · Specify market suspension and in-play behaviour
+
+[Issue #336](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/336) · `feat` · `high` · **Portfolio Depth**
+
+> When a market is suspended mid-event — is trading halted, orders cancelled, or the market left open with a delay — and what happens to orders and matches that were in flight at the moment of suspension?
+
+**Why it matters.** An empty book and a suspended market are the two real failure modes of a peer-to-peer book, and neither exists in the bookmaker design. In-flight orders at the instant of suspension are the specific case that usually goes undefined and then gets argued about.
+
+**Acceptance criteria**
+
+- [ ] Written rules for each suspension trigger, and who may trigger it
+- [ ] Answer on the fate of resting orders at the moment of suspension: held, cancelled, or converted to matches
+- [ ] Answer on in-flight matches: does a match that committed before suspension still stand
+- [ ] Time-to-halt measured and recorded, consistent with the platform kill switch
+- [ ] Suspension and resumption are audited events that customers can see and disputes can reference
+
+<a id="q66"></a>
+
+#### Q66 · Define odd-lot handling: who is counterparty to the remainder
+
+[Issue #337](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/337) · `spike` · `high` · **Portfolio Depth**
+
+> When an order cannot be fully filled by the opposite side of the book, who takes the remainder — is the exchange the counterparty at a posted price, is the remainder discarded, or does the order stay live?
+
+**Why it matters.** An exchange that claims not to be the counterparty is still the counterparty to whatever nobody else wants to take. ADR-0001 admits this residual exists; the question is how it is priced and who carries it, and pretending it does not exist would make the liability cap withdrawn in ADR-0001 quietly necessary again.
+
+**Acceptance criteria**
+
+- [ ] Explicit statement of when and how the exchange becomes counterparty, if at all
+- [ ] If the exchange takes the remainder: the price, the limit, and whose exposure it consumes
+- [ ] Decision on whether an unfilled remainder is discarded, held, or held-then-expired, and at what time
+- [ ] Written argument on whether the odd-lot exposure is bounded by the same account exposure limit, and if not, why not
+- [ ] If the exchange takes the remainder, the accounting is visible in the double-entry ledger, not absorbed silently

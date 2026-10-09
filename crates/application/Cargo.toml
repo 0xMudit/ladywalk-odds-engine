@@ -1,0 +1,67 @@
+[package]
+name        = "application"
+version     = "0.1.0"
+edition     = "2021"
+description = "Use-case orchestration layer. Depends on domain; never on adapters directly."
+
+# The dependency list is deliberately short. This crate is the only place that
+# orchestrates, so anything it needs in order to *talk* to something belongs
+# here — but anything that belongs to the *process* (which env file to read, which
+# listener to bind, when to exit, which ports to open) belongs to the binary.
+#
+# The dividing line is policy versus mechanism. `config` knows that a missing
+# `DATABASE_URL` is a fatal misconfiguration and that `PORT` defaults to 8080;
+# the binary is what reads `.env` off disk and what binds the listener.
+# `telemetry` knows that a request id belongs in every span; the binary is what
+# decides the log level and where the output goes. Neither half is useful
+# without the other, so they travel together in one crate and the binary simply
+# calls into them.
+#
+# In particular there is no `sqlx`, no `axum` and no `reqwest` here: an
+# application that imports its own database driver cannot be tested against a
+# fake. The transport's own wire types live in the `api` crate, which sits
+# *above* this one and may therefore depend on it, never the reverse.
+[dependencies]
+domain      = { path = "../domain" }
+async-trait = { workspace = true }
+
+# Price signing (see `signing`).
+hmac        = { workspace = true }
+sha2        = { workspace = true }
+hex         = { workspace = true }
+
+# Canonical serialisation. The event log stores `EventPayload` as JSONB and the
+# audit chain hashes a canonical JSON detail string, and in both cases the bytes
+# that get stored or hashed must be produced by the layer that defines the type.
+# Letting the adapter build them would mean the hash covered a representation the
+# domain never chose.
+serde       = { workspace = true }
+serde_json  = { workspace = true }
+
+# Runtime primitives used by the *policy* half of the process: a `CancellationToken`
+# for shutdown, a `watch` channel for reloadable state, and the runtime the
+# tests need in order to await a port.
+tokio       = { workspace = true, features = ["sync", "rt", "macros", "time"] }
+tokio-util  = { workspace = true }
+
+# Configuration and observability policy.
+dotenvy     = { workspace = true }
+tracing             = { workspace = true }
+tracing-subscriber  = { workspace = true }
+tracing-bunyan-formatter = { workspace = true }
+
+# Identifier generation. `OrderId`, `EventId` and the correlation id are UUIDs;
+# the counter-based ones stay in `domain` where their allocation rules live.
+uuid        = { workspace = true }
+
+[dev-dependencies]
+# Only for building a runtime in the synchronous tests. The use cases are
+# async because the ports are, not because they need to be driven by a server.
+tokio = { workspace = true }
+
+# `domain` again, for the integration tests only. A regular dependency is not
+# automatically in scope for a `tests/` crate, and these tests legitimately need
+# to build the domain values the ports take — a `LedgerTransaction`, a `Selection`
+# — rather than reaching past the public API to fake them. Nothing outside
+# `src/` is allowed to depend on it in any other way.
+domain = { path = "../domain" }

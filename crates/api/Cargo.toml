@@ -1,0 +1,13 @@
+[package]
+name        = "api"
+version     = "0.1.0"
+edition     = "2021"
+description = "The public, versioned HTTP contract: request and response shapes, the error envelope, and idempotency keys."
+
+[dependencies]
+domain      = { path = "../domain" }
+application = { path = "../application" }
+serde       = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }

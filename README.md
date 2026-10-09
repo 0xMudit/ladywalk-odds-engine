@@ -2,7 +2,7 @@
 
 **An open-source betting platform, built in public, designed to survive the questions a principal engineer asks before signing off.**
 
-> **Status: design phase.** This repository currently contains the *question set* and the *roadmap*, not an implementation. That is deliberate. The hard part of a betting platform is not writing a bet-placement endpoint — it is the 58 design questions in [open design questions](docs/design/open-questions.md) and the 260 build issues in [Roadmap](docs/roadmap.md), each one a trap that has sunk a real production system. They are tracked as GitHub issues, and each will be closed with a committed artefact, not a paragraph.
+> **Status: design phase, implementation beginning.** This repository is built from the *question set* and the *roadmap* rather than ahead of them. That is deliberate. The hard part of a betting platform is not writing a bet-placement endpoint — it is the 58 design questions in [open design questions](docs/design/open-questions.md) and the 260 build issues in [Roadmap](docs/roadmap.md), each one a trap that has sunk a real production system. They are tracked as GitHub issues, and each will be closed with a committed artefact, not a paragraph. The [workspace](#repository-layout) now exists, with the `domain` crate — where the rules live — completed first, because it is the crate that can be finished without answering a single open question.
 
 [![Questions tracked](https://img.shields.io/badge/questions-58-informational)](docs/design/open-questions.md)
 [![Build issues](https://img.shields.io/badge/roadmap-260%20issues-success)](docs/roadmap.md)
@@ -118,6 +118,64 @@ The three decisions everything else hangs off, in order:
 1. **[Q15](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/15)** — fixed-odds, pari-mutuel, or exchange? These have completely different concurrency and liability models. Every other subsystem is downstream of this one. **This is why the repository is not yet described as a fixed-odds engine.**
 2. **[Q08](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/8)** — what serialises concurrent bets on one market?
 3. **[Q36](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/36)** — are the wallet and bet placement separate failure domains from odds and market data?
+
+## Repository layout
+
+The backend is a Cargo workspace. The crate split is not a matter of taste — it exists to make one
+specific mistake impossible: letting a rule about betting depend on a database, a socket, or a web
+framework.
+
+```
+crates/
+  domain/        money types, error taxonomy, and the rules of the exchange
+  application/   use cases; config, telemetry, and shutdown primitives
+  adapters/      sqlx, HTTP handlers, and every other I/O edge
+  api/           the public versioned HTTP contract
+  web/           the server-rendered betting surface
+bin/
+  order-entry/   the thin binary that wires the above together
+```
+
+**`domain` — the rules, with nothing to stand on.** Every decision about what a bet is worth, what a
+customer may do, and what must never be allowed happens here, and this crate is allowed exactly two
+external dependencies: `serde`, and a decimal/integer helper. It performs no I/O, holds no
+connection, and knows nothing about HTTP, SQL, or Redis. That restriction is the point: it means the
+part of a betting engine most likely to be wrong — the part that decides — can be tested exhaustively
+with no fixtures, no containers, and no clock. A rule that cannot be evaluated without a database is
+a rule nobody will test properly, and an untested rule about money is an outage.
+
+**`application` — what a client can ask for.** Use-case orchestration sits here: place an order,
+quote a price, settle a market. It coordinates `domain` calls and the ports it needs, but reaches
+infrastructure only through traits declared in this crate, so a use case can be exercised with a stub
+ledger. Configuration, tracing, and graceful-shutdown primitives live here too, because they are
+concerns of a running process rather than of any one adapter.
+
+**`adapters` — the only crate allowed to touch the outside world.** PostgreSQL via sqlx, HTTP via
+Axum, and any other external dependency live behind ports that `application` declares. This is the
+crate that can be replaced, and the one whose tests need containers. Keeping I/O confined here is
+what keeps `domain` portable enough to be reasoned about.
+
+**`api` — the contract third parties program against.** Request and response shapes, the error
+envelope, and idempotency semantics are defined in one crate, separately from the transport that
+carries them. The practical payoff is that "is this a breaking change?" becomes answerable: a handler
+in `adapters` can be rewritten freely because nothing outside `api` names it, whereas a field added
+to `api` is versioned because something outside parses it.
+
+**`web` — the server-rendered betting surface.** Kept apart from `api` because the two have opposite
+compatibility requirements: a browser can be forced to reload, an integrator's integration cannot.
+It is a presentation layer over `application` and must not decide anything — a page that needs a
+number asks a use case for it. Server-rendering is what makes "the price you saw is the price the
+server confirmed" structurally true rather than a race the client can lose. The client-side
+application is a TypeScript package outside this workspace.
+
+**`bin/*` — thin entrypoints.** A binary loads configuration, initialises tracing, starts the server,
+and coordinates shutdown. No business logic lives in a binary, because logic in an entrypoint cannot
+be tested by importing it.
+
+The dependency direction is enforced, not merely documented. `crates/domain/tests/dependency_purity.rs`
+asserts the direct dependency list, and `scripts/check-domain-deps.sh` walks the *resolved* graph
+with `cargo metadata` and fails if `adapters`, `application`, `sqlx`, `redis`, or any HTTP framework is
+reachable from `domain`. Both run in CI.
 
 ## Scope and safety
 

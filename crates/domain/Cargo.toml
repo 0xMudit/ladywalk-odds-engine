@@ -1,0 +1,28 @@
+[package]
+name        = "domain"
+version     = "0.1.0"
+edition     = "2021"
+description = "Pure domain model: Money, errors, aggregates. No I/O, no async, no HTTP."
+
+# -----------------------------------------------------------------------
+# DEPENDENCY RULE (enforced by tests/dependency_purity.rs and by
+# scripts/check-domain-deps.sh):
+#
+#   `domain` may depend on `serde` and nothing else. Not thiserror, not
+#   uuid, not chrono, not an error-derive macro. The reason is that every
+#   one of those is a second place for the money path to acquire a
+#   representation, a rounding rule, or a serialisation format that the
+#   domain did not choose. `Display` and `std::error::Error` are written
+#   out by hand here for the same reason: they are twenty lines, and the
+#   version of them that ships is the version in this file.
+#
+#   `domain` may NOT depend on: adapters, application, sqlx, redis, axum,
+#   tower, reqwest, hyper, actix, or tokio.
+# -----------------------------------------------------------------------
+
+[dependencies]
+serde = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+proptest   = { workspace = true }

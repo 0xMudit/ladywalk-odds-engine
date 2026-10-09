@@ -4,10 +4,13 @@ An ADR captures one architectural decision, the alternatives that were
 rejected, and — the part that matters most — the condition that should make
 someone reopen it.
 
-**This directory is currently empty.** That is the honest state of the project:
-no design question has been answered yet. The first ADRs will be written by
-answering the questions tracked in [`../design/open-questions.md`](../design/open-questions.md),
-not in advance of them.
+Two decisions are recorded. Both were taken together, because the second is
+meaningless until the first exists: an exchange has to decide who settles
+before it can decide how.
+
+The rest of the committed constraints in
+[`../architecture/README.md`](../architecture/README.md) are still written as if
+they were decided, and each becomes an ADR when its question is answered.
 
 ## Process
 
@@ -28,7 +31,8 @@ not in advance of them.
 
 | ADR | Title | Status | Date |
 | --- | --- | --- | --- |
-| — | _none yet_ | | |
+| [0001](0001-peer-to-peer-exchange.md) | Peer-to-peer exchange with a price-time priority order book | Accepted | 2026-09-27 |
+| [0002](0002-solana-settlement.md) | Solana for settlement, with the matching engine kept off-chain | Accepted | 2026-09-27 |
 
 ## Conventions
 
@@ -53,6 +57,11 @@ were already decided, and each will become an ADR when its question is answered:
 | Money is never a float | [Q01](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/1) |
 | The ledger is the source of truth, not the balance | [Q03](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/3) |
 | Double-entry sums to zero with zero tolerance | [Q04](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/4) |
-| The server decides the price | [Q19](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/19) |
 | Every state change is audited tamper-evidently | [Q47](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/47) |
 | One switch stops all money movement | [Q35](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/35) |
+
+One candidate was removed rather than deferred. "The server decides the price"
+([Q19](https://github.com/BerlinDeskMudit/LadyWalk-odds-engine/issues/19)) was a
+bookmaker property, and [ADR-0001](0001-peer-to-peer-exchange.md) inverted it:
+in an exchange the client proposes the price and the engine decides the match.
+Writing an ADR for it would record the wrong invariant.
